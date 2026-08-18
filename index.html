@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENTE PROPIA | Arquitectura y Diseño</title>
+    
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    keyframes: {
+                        soundwave: {
+                            '0%, 100%': { height: '4px' },
+                            '50%': { height: '16px' },
+                        }
+                    },
+                    animation: {
+                        soundwave1: 'soundwave 1s ease-in-out infinite',
+                        soundwave2: 'soundwave 1.2s ease-in-out infinite 0.2s',
+                        soundwave3: 'soundwave 0.8s ease-in-out infinite 0.4s',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-black text-white h-screen w-screen overflow-hidden select-none">
+
+    <!-- AUDIO DE FONDO -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="assets/musica.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- HERO SECTION / FULLSCREEN CONTAINER -->
+    <div class="relative w-full h-full flex flex-col justify-between overflow-hidden">
+
+        <!-- 1. VIDEO DE FONDO (Alejado para mostrar el encuadre completo sin cortes arriba ni abajo) -->
+        <video 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            poster="assets/fondo.jpg"
+            class="absolute inset-0 w-full h-full object-contain object-center z-0">
+            <source src="assets/video.mp4" type="video/mp4">
+            Tu navegador no soporta videos en HTML5.
+        </video>
+
+        <!-- Overlay Oscuro Sutil -->
+        <div class="absolute inset-0 bg-black/25 bg-gradient-to-b from-black/50 via-transparent to-black/60 pointer-events-none z-10"></div>
+
+        <!-- 2. NAVBAR TRANSPARENTE (HEADER RESPONSIVE TOTAL PARA CUALQUIER RESOLUCIÓN / TV) -->
+        <header class="fixed top-0 left-0 w-full z-50 px-4 sm:px-8 md:px-12 lg:px-16 py-4 sm:py-6 md:py-8 flex items-center justify-between transition-all duration-300">
+            <!-- Logo -->
+            <a href="#" class="flex items-center tracking-wider text-lg sm:text-2xl lg:text-3xl text-white group focus:outline-none shrink-0">
+                <span class="font-extrabold font-[800] tracking-tight">MENTE</span>
+                <span class="font-light font-[300] ml-1.5 sm:ml-2 tracking-widest text-white/95">PROPIA</span>
+            </a>
+
+            <!-- Menú Escritorio / Pantallas Grandes (Visible en lg/xl en adelante) -->
+            <nav class="hidden xl:flex items-center space-x-6 2xl:space-x-8">
+                <a href="#inicio" class="text-xs 2xl:text-sm font-semibold uppercase tracking-wider text-white hover:opacity-70 transition-opacity duration-200">INICIO</a>
+                <a href="#proyectos" class="text-xs 2xl:text-sm font-semibold uppercase tracking-wider text-white hover:opacity-70 transition-opacity duration-200">PROYECTOS</a>
+                <a href="#mp" class="text-xs 2xl:text-sm font-semibold uppercase tracking-wider text-white hover:opacity-70 transition-opacity duration-200">MP</a>
+                <a href="#contactos" class="text-xs 2xl:text-sm font-semibold uppercase tracking-wider text-white hover:opacity-70 transition-opacity duration-200">CONTACTOS</a>
+                <a href="#trayectoria" class="text-xs 2xl:text-sm font-semibold uppercase tracking-wider text-white hover:opacity-70 transition-opacity duration-200">TRAYECTORIA</a>
+                <a href="#equipo" class="text-xs 2xl:text-sm font-semibold uppercase tracking-wider text-white hover:opacity-70 transition-opacity duration-200">EQUIPO</a>
+                <a href="#somos" class="text-xs 2xl:text-sm font-semibold uppercase tracking-wider text-white hover:opacity-70 transition-opacity duration-200">SOMOS</a>
+            </nav>
+
+            <!-- Barra de Acciones Fija (SIEMPRE VISIBLE en cualquier pantalla, TV o móvil) -->
+            <div class="flex items-center space-x-3 sm:space-x-4 shrink-0">
+                <!-- Botón Toggle de Sonido / Música Universal -->
+                <button id="music-toggle" type="button" aria-label="Activar o desactivar música" title="Activar / Desactivar Sonido"
+                        class="music-btn w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/80 flex items-center justify-center text-black bg-white hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none cursor-pointer shadow-md">
+                    <!-- Icono Sonido Activado (Blanco) -->
+                    <svg id="music-icon-on" class="w-4 h-4 sm:w-4.5 sm:h-4.5 hidden text-white fill-current" viewBox="0 0 24 24">
+                        <path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2.5-2.23l-5.5 5h-4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h4l5.5 5c.67.61 1.5-.02 1.5-.77v-20.46c0-.75-.83-1.38-1.5-.77zm-1.5 16.71l-4.29-3.9h-2.71v-6h2.71l4.29-3.9v13.8zm5.5-9.71c.71.71 1.15 1.69 1.15 2.77 0 1.08-.44 2.06-1.15 2.77l1.06 1.06c1.02-1.02 1.65-2.42 1.65-3.83s-.63-2.81-1.65-3.83l-1.06 1.06z"/>
+                    </svg>
+                    <!-- Icono Sonido Desactivado (Negro) -->
+                    <svg id="music-icon-off" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-black fill-current" viewBox="0 0 24 24">
+                        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51c.66-1.24 1.03-2.65 1.03-4.15 0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27l4.73 4.73H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h4l5 5c.67.61 1.5-.02 1.5-.77v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L20.73 22 22 20.73 4.27 3zM12 4l-2.18 1.98 2.18 2.18V4z"/>
+                    </svg>
+                </button>
+
+                <!-- Icono de Búsqueda -->
+                <button type="button" aria-label="Buscar" class="text-white hover:opacity-70 transition-opacity p-1.5 focus:outline-none cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+
+                <!-- Botón Menú Hamburguesa (Visible en pantallas menores a xl) -->
+                <button id="menu-toggle" type="button" aria-label="Abrir menú" class="xl:hidden text-white hover:opacity-70 focus:outline-none p-1.5 cursor-pointer">
+                    <svg id="menu-icon-open" class="w-6 h-6 sm:w-7 sm:h-7 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <svg id="menu-icon-close" class="w-6 h-6 sm:w-7 sm:h-7 stroke-current hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Menú Desplegable (Totalmente transparente para apreciar el video de fondo en cualquier dispositivo) -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-40 flex flex-col items-center justify-center space-y-6 opacity-0 pointer-events-none transition-all duration-300 xl:hidden">
+            <a href="#inicio" class="mobile-nav-link text-xl font-semibold uppercase tracking-widest text-white hover:opacity-70 drop-shadow-md">INICIO</a>
+            <a href="#proyectos" class="mobile-nav-link text-xl font-semibold uppercase tracking-widest text-white hover:opacity-70 drop-shadow-md">PROYECTOS</a>
+            <a href="#mp" class="mobile-nav-link text-xl font-semibold uppercase tracking-widest text-white hover:opacity-70 drop-shadow-md">MP</a>
+            <a href="#contactos" class="mobile-nav-link text-xl font-semibold uppercase tracking-widest text-white hover:opacity-70 drop-shadow-md">CONTACTOS</a>
+            <a href="#trayectoria" class="mobile-nav-link text-xl font-semibold uppercase tracking-widest text-white hover:opacity-70 drop-shadow-md">TRAYECTORIA</a>
+            <a href="#equipo" class="mobile-nav-link text-xl font-semibold uppercase tracking-widest text-white hover:opacity-70 drop-shadow-md">EQUIPO</a>
+            <a href="#somos" class="mobile-nav-link text-xl font-semibold uppercase tracking-widest text-white hover:opacity-70 drop-shadow-md">SOMOS</a>
+        </div>
+
+        <!-- 3. FOOTER FLOTANTE (REDES SOCIALES MÁS PEQUEÑOS Y ELEGANTES) -->
+        <footer class="fixed bottom-0 left-0 w-full z-30 pb-6 md:pb-8 flex justify-center items-center">
+            <div class="flex items-center space-x-3.5 md:space-x-4">
+                <!-- WhatsApp -->
+                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
+                   class="w-7 h-7 md:w-8 md:h-8 rounded-full border border-white/70 flex items-center justify-center text-white bg-transparent hover:border-white hover:bg-white/20 hover:scale-110 active:scale-95 transition-all duration-300">
+                    <svg class="w-3.5 h-3.5 md:w-4 md:h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-5.805 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                   class="w-7 h-7 md:w-8 md:h-8 rounded-full border border-white/70 flex items-center justify-center text-white bg-transparent hover:border-white hover:bg-white/20 hover:scale-110 active:scale-95 transition-all duration-300">
+                    <svg class="w-3.5 h-3.5 md:w-4 md:h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.667 5H18V0h-3.834C10.666 0 9 1.667 9 4.667V8z"/>
+                    </svg>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                   class="w-7 h-7 md:w-8 md:h-8 rounded-full border border-white/70 flex items-center justify-center text-white bg-transparent hover:border-white hover:bg-white/20 hover:scale-110 active:scale-95 transition-all duration-300">
+                    <svg class="w-3.5 h-3.5 md:w-4 md:h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                   class="w-7 h-7 md:w-8 md:h-8 rounded-full border border-white/70 flex items-center justify-center text-white bg-transparent hover:border-white hover:bg-white/20 hover:scale-110 active:scale-95 transition-all duration-300">
+                    <svg class="w-3.5 h-3.5 md:w-4 md:h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.9 2.9 0 01-2.9-2.88 2.89 2.89 0 012.9-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003 15.25a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.76a8.28 8.28 0 004.91 1.6v-3.44a4.85 4.85 0 01-1-.23z"/>
+                    </svg>
+                </a>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Script interactivo -->
+    <script>
+        // Menú Móvil
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                menuIconOpen.classList.add('hidden');
+                menuIconClose.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            } else {
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) toggleMenu();
+            });
+        });
+
+        // Control de Música de Fondo
+        const bgMusic = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIconOn = document.getElementById('music-icon-on');
+        const musicIconOff = document.getElementById('music-icon-off');
+
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                bgMusic.pause();
+                isPlaying = false;
+                updateAudioUI(false);
+            } else {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    updateAudioUI(true);
+                }).catch((error) => {
+                    console.log("Reproducción bloqueada por el navegador:", error);
+                });
+            }
+        }
+
+        function updateAudioUI(playing) {
+            if (playing) {
+                // Estado Activado: Icono Blanco
+                if (musicIconOn) musicIconOn.classList.remove('hidden');
+                if (musicIconOff) musicIconOff.classList.add('hidden');
+                if (musicToggle) {
+                    musicToggle.className = "music-btn w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white flex items-center justify-center text-white bg-white/25 hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none cursor-pointer shadow-md";
+                }
+            } else {
+                // Estado Desactivado: Icono Negro
+                if (musicIconOn) musicIconOn.classList.add('hidden');
+                if (musicIconOff) musicIconOff.classList.remove('hidden');
+                if (musicToggle) {
+                    musicToggle.className = "music-btn w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/80 flex items-center justify-center text-black bg-white hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none cursor-pointer shadow-md";
+                }
+            }
+        }
+
+        if (musicToggle) {
+            musicToggle.addEventListener('click', toggleAudio);
+        }
+
+        // Intento de reproducción al primer toque/clic en cualquier parte de la página
+        const startAudioOnFirstInteraction = () => {
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    updateAudioUI(true);
+                }).catch(() => {});
+            }
+            window.removeEventListener('click', startAudioOnFirstInteraction);
+            window.removeEventListener('touchstart', startAudioOnFirstInteraction);
+        };
+
+        window.addEventListener('click', startAudioOnFirstInteraction, { once: true });
+        window.addEventListener('touchstart', startAudioOnFirstInteraction, { once: true });
+    </script>
+</body>
+</html>
