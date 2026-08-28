@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENTE PROPIA | MP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <header class="navbar navbar-dark" id="main-nav">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo"><strong>MENTE</strong> PROPIA</a>
+            <nav class="nav-links">
+                <a href="index.html">INICIO</a>
+                <div class="nav-dropdown-container">
+                    <a href="proyectos.html">PROYECTOS</a>
+                    <div class="nav-dropdown">
+                        <a href="proyectos.html#all">Todos</a>
+                        <a href="proyectos.html#casas">Casas</a>
+                        <a href="proyectos.html#edificios">Edificios</a>
+                        <a href="proyectos.html#corporativos">Corporativos</a>
+                        <a href="proyectos.html#culturales">Culturales</a>
+                        <a href="proyectos.html#concursos">Concursos</a>
+                    </div>
+                </div>
+                <a href="mp.html">MP</a>
+                <a href="contactos.html">CONTACTOS</a>
+                <a href="trayectoria.html">TRAYECTORIA</a>
+                <a href="equipo.html">EQUIPO</a>
+                <a href="somos.html">SOMOS</a>
+            </nav>
+            <div class="nav-right-group">
+                <button id="nav-audio-toggle" class="nav-audio-btn" title="Toggle Audio"><i class="fas fa-volume-mute"></i></button>
+                <button id="menuToggle" class="menu-toggle-btn" aria-label="Abrir Menú"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+    <!-- Fullscreen Mobile Overlay Menu -->
+    <nav id="mobileMenu" class="overlay-menu" aria-label="Menú móvil">
+        <button id="menuClose" class="menu-close-btn" aria-label="Cerrar Menú">✕</button>
+        <div class="overlay-menu-links">
+            <a href="index.html">INICIO</a>
+            <a href="proyectos.html">PROYECTOS</a>
+            <a href="mp.html">MP</a>
+            <a href="contactos.html">CONTACTOS</a>
+            <a href="trayectoria.html">TRAYECTORIA</a>
+            <a href="equipo.html">EQUIPO</a>
+            <a href="somos.html">SOMOS</a>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <section id="mp" class="section">
+            <div class="container mp-container">
+                <div class="mp-content">
+                    <h2 class="mp-title">Premios y Reconocimientos</h2>
+                    <p class="mp-subtitle">Distinciones que destacan la excelencia y rigor de nuestros proyectos</p>
+                    
+                    <ul class="awards-list">
+                        <li>
+                            <span class="award-year">2025</span>
+                            <span class="award-desc">Seleccionados dentro de <strong>Las 50 mejores casas latinoamericanas del 2024</strong> por ArchDaily, la plataforma de arquitectura más visitada del mundo (Casa Forno)</span>
+                        </li>
+                        <li>
+                            <span class="award-year">2024</span>
+                            <span class="award-desc">Seleccionados dentro de Las <strong>50 mejores casas del 2023</strong> por ArchDaily, la plataforma de arquitectura más visitada del mundo (Casa Mirador)</span>
+                        </li>
+                        <li>
+                            <span class="award-year">2024</span>
+                            <span class="award-desc">Selección para representar a Bolivia en los Premios Oscar Niemeyer (Casa OP, Casa Mirador).</span>
+                        </li>
+                        <li>
+                            <span class="award-year">2024</span>
+                            <span class="award-desc">Primer Lugar en la IX Bienal Internacional de Santa Cruz en categoria "Obra Construida" (Casa Mirador).</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mp-giant">
+                    <h2>MP</h2>
+                </div>
+            </div>
+            
+            <footer class="grey-bar footer-global">
+        <div class="container footer-bar">
+            <span class="logo-text"><strong>MENTE</strong> PROPIA</span>
+            <div class="footer-socials">
+                <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/59175016970" target="_blank" class="social-circle"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-circle"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <audio id="bg-audio" loop><source src="assets/musica.mp3" type="audio/mpeg"></audio>
+</body>
+</html>

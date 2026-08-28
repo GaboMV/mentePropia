@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENTE PROPIA | Somos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <header class="navbar navbar-dark" id="main-nav">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo"><strong>MENTE</strong> PROPIA</a>
+            <nav class="nav-links">
+                <a href="index.html">INICIO</a>
+                <div class="nav-dropdown-container">
+                    <a href="proyectos.html">PROYECTOS</a>
+                    <div class="nav-dropdown">
+                        <a href="proyectos.html#all">Todos</a>
+                        <a href="proyectos.html#casas">Casas</a>
+                        <a href="proyectos.html#edificios">Edificios</a>
+                        <a href="proyectos.html#corporativos">Corporativos</a>
+                        <a href="proyectos.html#culturales">Culturales</a>
+                        <a href="proyectos.html#concursos">Concursos</a>
+                    </div>
+                </div>
+                <a href="mp.html">MP</a>
+                <a href="contactos.html">CONTACTOS</a>
+                <a href="trayectoria.html">TRAYECTORIA</a>
+                <a href="equipo.html">EQUIPO</a>
+                <a href="somos.html">SOMOS</a>
+            </nav>
+            <div class="nav-right-group">
+                <button id="nav-audio-toggle" class="nav-audio-btn" title="Toggle Audio"><i class="fas fa-volume-mute"></i></button>
+                <button id="menuToggle" class="menu-toggle-btn" aria-label="Abrir Menú"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+    <!-- Fullscreen Mobile Overlay Menu -->
+    <nav id="mobileMenu" class="overlay-menu" aria-label="Menú móvil">
+        <button id="menuClose" class="menu-close-btn" aria-label="Cerrar Menú">✕</button>
+        <div class="overlay-menu-links">
+            <a href="index.html">INICIO</a>
+            <a href="proyectos.html">PROYECTOS</a>
+            <a href="mp.html">MP</a>
+            <a href="contactos.html">CONTACTOS</a>
+            <a href="trayectoria.html">TRAYECTORIA</a>
+            <a href="equipo.html">EQUIPO</a>
+            <a href="somos.html">SOMOS</a>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <section id="somos" class="section">
+            <div class="container">
+                <h2 class="section-heading text-center mb-4">SOMOS</h2>
+                
+                <div class="pensamiento-header">
+                    <div class="vertical-line"></div>
+                    <div>
+                        <h3 class="pensamiento-title">Pensamiento</h3>
+                        <p class="pensamiento-desc">En SOMMET nos caracterizamos por nuestra profunda <strong>pasión y rigor técnico y enfoque en reorientar la práctica de la arquitectura contemporánea.</strong><br>Nos interesa crear arquitectura que trascienda el tiempo y las contingencias estilísticas, enriqueciendo la experiencia humana y el contexto urbano social y cultural a través de su calidad intrínseca.</p>
+                    </div>
+                </div>
+                
+                <div class="somos-strip">
+                    <img src="assets/fondo.jpg" alt="Img 1" onerror="this.src='https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400'">
+                    <img src="assets/fondo.jpg" alt="Img 2" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400'">
+                    <img src="assets/fondo.jpg" alt="Img 3" onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?w=400'">
+                    <img src="assets/fondo.jpg" alt="Img 4" onerror="this.src='https://images.unsplash.com/photo-1541123437800-1c64dfd6c0df?w=400'">
+                </div>
+            </div>
+
+            <div class="dark-blog-box">
+                <div class="container">
+                    <div class="blog-header">
+                        <h3>Blog<br>SO-much to-MMET</h3>
+                    </div>
+                    
+                    <div class="blog-list">
+                        <div class="blog-item">
+                            <span class="blog-num">2</span>
+                            <div class="blog-img">
+                                <img src="assets/fondo.jpg" alt="Lo sublime" onerror="this.src='https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400'">
+                            </div>
+                            <div class="blog-info">
+                                <h4>Lo sublime</h4>
+                                <span class="date">21 de mayo 2025</span>
+                                <p>Algunas obras tienen el poder de detenernos, de obligarnos a mirar de obligarnos a pensar, de hacernos sentir algo más allá de la simple apreciación estética...</p>
+                                <a href="#" class="btn-read">Leer</a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-item">
+                            <span class="blog-num">1</span>
+                            <div class="blog-img">
+                                <img src="assets/fondo.jpg" alt="El peso de lo esencial" onerror="this.src='https://images.unsplash.com/photo-1502672260266-1c1c24240f38?w=400'">
+                            </div>
+                            <div class="blog-info">
+                                <h4>El peso de lo esencial</h4>
+                                <span class="date">1 de abril 2025 - 3 minutos de lectura</span>
+                                <p>En un mundo obsesionado con lo nuevo, olvidamos que lo verdaderamente valioso no irrumpe, se revela con el tiempo. No es la novedad, sino la profundidad, lo que da forma a lo que perdura...</p>
+                                <a href="#" class="btn-read">Leer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="grey-bar footer-global">
+        <div class="container footer-bar">
+            <span class="logo-text"><strong>MENTE</strong> PROPIA</span>
+            <div class="footer-socials">
+                <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/59175016970" target="_blank" class="social-circle"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-circle"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <audio id="bg-audio" loop><source src="assets/musica.mp3" type="audio/mpeg"></audio>
+</body>
+</html>

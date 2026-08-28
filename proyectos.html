@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENTE PROPIA | Proyectos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <header class="navbar navbar-dark" id="main-nav">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo"><strong>MENTE</strong> PROPIA</a>
+            <nav class="nav-links">
+                <a href="index.html">INICIO</a>
+                <div class="nav-dropdown-container">
+                    <a href="proyectos.html">PROYECTOS</a>
+                    <div class="nav-dropdown">
+                        <a href="#all" class="filter-btn" data-filter="all">Todos</a>
+                        <a href="#casas" class="filter-btn" data-filter="casas">Casas</a>
+                        <a href="#edificios" class="filter-btn" data-filter="edificios">Edificios</a>
+                        <a href="#corporativos" class="filter-btn" data-filter="corporativos">Corporativos</a>
+                        <a href="#culturales" class="filter-btn" data-filter="culturales">Culturales</a>
+                        <a href="#concursos" class="filter-btn" data-filter="concursos">Concursos</a>
+                    </div>
+                </div>
+                <a href="mp.html">MP</a>
+                <a href="contactos.html">CONTACTOS</a>
+                <a href="trayectoria.html">TRAYECTORIA</a>
+                <a href="equipo.html">EQUIPO</a>
+                <a href="somos.html">SOMOS</a>
+            </nav>
+            <div class="nav-right-group">
+                <button id="nav-audio-toggle" class="nav-audio-btn" title="Toggle Audio"><i class="fas fa-volume-mute"></i></button>
+                <button id="menuToggle" class="menu-toggle-btn" aria-label="Abrir Menú"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+    <!-- Fullscreen Mobile Overlay Menu -->
+    <nav id="mobileMenu" class="overlay-menu" aria-label="Menú móvil">
+        <button id="menuClose" class="menu-close-btn" aria-label="Cerrar Menú">✕</button>
+        <div class="overlay-menu-links">
+            <a href="index.html">INICIO</a>
+            <a href="proyectos.html">PROYECTOS</a>
+            <a href="mp.html">MP</a>
+            <a href="contactos.html">CONTACTOS</a>
+            <a href="trayectoria.html">TRAYECTORIA</a>
+            <a href="equipo.html">EQUIPO</a>
+            <a href="somos.html">SOMOS</a>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <section id="proyectos" class="section" style="padding-bottom:0;">
+            <div class="container">
+                <div class="proyectos-header">
+                    <h2 class="section-heading">PROYECTOS</h2>
+                </div>
+                
+                <nav class="scrollable-filters">
+                      <button class="filter-chip active" data-filter="all">Todos</button>
+                      <button class="filter-chip" data-filter="casas">Casas</button>
+                      <button class="filter-chip" data-filter="edificios">Edificios</button>
+                      <button class="filter-chip" data-filter="corporativos">Corporativos</button>
+                      <button class="filter-chip" data-filter="culturales">Culturales</button>
+                      <button class="filter-chip" data-filter="concursos">Concursos</button>
+                  </nav>
+            </div>
+            
+            <div class="container">
+                <div class="gallery-grid main-projects-grid">
+                    <a href="proyecto-detalle.html" class="gallery-item casas">
+                        <img src="assets/fondo.jpg" alt="Proyecto 1" onerror="this.src='https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800'">
+                        <div class="overlay"><span>PROYECTO 1</span></div>
+                    </a>
+                    <a href="proyecto-detalle.html" class="gallery-item edificios">
+                        <img src="assets/fondo.jpg" alt="Proyecto 2" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800'">
+                        <div class="overlay"><span>PROYECTO 2</span></div>
+                    </a>
+                    <a href="proyecto-detalle.html" class="gallery-item corporativos">
+                        <img src="assets/fondo.jpg" alt="Proyecto 3" onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?w=800'">
+                        <div class="overlay"><span>PROYECTO 3</span></div>
+                    </a>
+                    <a href="proyecto-detalle.html" class="gallery-item culturales">
+                        <img src="assets/fondo.jpg" alt="Proyecto 4" onerror="this.src='https://images.unsplash.com/photo-1541123437800-1c64dfd6c0df?w=800'">
+                        <div class="overlay"><span>PROYECTO 4</span></div>
+                    </a>
+                    <a href="proyecto-detalle.html" class="gallery-item casas">
+                        <img src="assets/fondo.jpg" alt="Proyecto 5" onerror="this.src='https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800'">
+                        <div class="overlay"><span>PROYECTO 5</span></div>
+                    </a>
+                    <a href="proyecto-detalle.html" class="gallery-item concursos">
+                        <img src="assets/fondo.jpg" alt="Proyecto 6" onerror="this.src='https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800'">
+                        <div class="overlay"><span>PROYECTO 6</span></div>
+                    </a>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <footer class="grey-bar footer-global">
+        <div class="container footer-bar">
+            <span class="logo-text"><strong>MENTE</strong> PROPIA</span>
+            <div class="footer-socials">
+                <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/59175016970" target="_blank" class="social-circle"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-circle"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <audio id="bg-audio" loop><source src="assets/musica.mp3" type="audio/mpeg"></audio>
+</body>
+</html>

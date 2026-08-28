@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MENTE PROPIA | Inicio</title>
+    <title>MENTE PROPIA | Contactos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -12,29 +12,22 @@
 </head>
 <body>
     
-    
-    
-
-    <!-- Header / Navbar -->
-    <header class="navbar" id="main-nav">
+    <header class="navbar navbar-dark" id="main-nav">
         <div class="container navbar-container">
             <a href="index.html" class="logo"><strong>MENTE</strong> PROPIA</a>
             <nav class="nav-links">
                 <a href="index.html">INICIO</a>
-                
-                <!-- PROYECTOS with Dropdown -->
                 <div class="nav-dropdown-container">
                     <a href="proyectos.html">PROYECTOS</a>
                     <div class="nav-dropdown">
-                        <a href="proyectos.html#all" class="filter-btn" data-filter="all">Todos</a>
-                        <a href="proyectos.html#casas" class="filter-btn" data-filter="casas">Casas</a>
-                        <a href="proyectos.html#edificios" class="filter-btn" data-filter="edificios">Edificios</a>
-                        <a href="proyectos.html#corporativos" class="filter-btn" data-filter="corporativos">Corporativos</a>
-                        <a href="proyectos.html#culturales" class="filter-btn" data-filter="culturales">Culturales</a>
-                        <a href="proyectos.html#concursos" class="filter-btn" data-filter="concursos">Concursos</a>
+                        <a href="proyectos.html#all">Todos</a>
+                        <a href="proyectos.html#casas">Casas</a>
+                        <a href="proyectos.html#edificios">Edificios</a>
+                        <a href="proyectos.html#corporativos">Corporativos</a>
+                        <a href="proyectos.html#culturales">Culturales</a>
+                        <a href="proyectos.html#concursos">Concursos</a>
                     </div>
                 </div>
-
                 <a href="mp.html">MP</a>
                 <a href="contactos.html">CONTACTOS</a>
                 <a href="trayectoria.html">TRAYECTORIA</a>
@@ -61,19 +54,40 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Inicio Section -->
-        <section id="inicio" class="hero-section">
-            <video autoplay muted loop playsinline class="hero-video">
-                <source src="assets/video.mp4" type="video/mp4">
-            </video>
+    <main class="page-content">
+        <section id="contactos" class="section">
+            <div class="container text-center">
+                <h2 class="section-heading">CONTACTOS</h2>
+                <p class="contact-subtitle">Para una atención personalizada y más inmediata por favor<br>contáctenos via Whatsapp.</p>
+                
+                <a href="https://wa.me/59175016970" target="_blank" class="btn-whatsapp">
+                    Whatsapp <span class="wa-icon"><i class="fab fa-whatsapp"></i></span>
+                </a>
+
+                <div class="contact-grid">
+                    <div class="contact-map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1913.3448405035252!2d-63.1818!3d-17.7833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDQ3JzAwLjAiUyA2M8KwMTAnNTQuNSJX!5e0!3m2!1ses!2sbo!4v1620000000000!5m2!1ses!2sbo" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="contact-info-right">
+                        <p class="office-label">Nuestras oficinas</p>
+                        <h3>Edificio Quartier Italia<br>Calle La Plata y Plaza Italia - Barrio Equipetrol<br>Santa Cruz de la Sierra<br>Bolivia</h3>
+                        <p class="tel">Telf.: (+591) 750 16 970</p>
+                        <p class="email">sommet@sommetarchitecture.com</p>
+                    </div>
+                </div>
+            </div>
             
-            <div class="hero-bottom-socials">
-                <a href="https://wa.me/59175016970" target="_blank" class="social-circle"><i class="fab fa-whatsapp"></i></a>
+            <footer class="grey-bar footer-global">
+        <div class="container footer-bar">
+            <span class="logo-text"><strong>MENTE</strong> PROPIA</span>
+            <div class="footer-socials">
                 <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/59175016970" target="_blank" class="social-circle"><i class="fab fa-whatsapp"></i></a>
                 <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="social-circle"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
             </div>
         </section>
     </main>

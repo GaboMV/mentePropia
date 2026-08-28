@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENTE PROPIA | Proyecto 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <header class="navbar navbar-dark" id="main-nav">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo"><strong>MENTE</strong> PROPIA</a>
+            <nav class="nav-links">
+                <a href="index.html">INICIO</a>
+                <div class="nav-dropdown-container">
+                    <a href="proyectos.html">PROYECTOS</a>
+                    <div class="nav-dropdown">
+                        <a href="proyectos.html#all">Todos</a>
+                        <a href="proyectos.html#casas">Casas</a>
+                        <a href="proyectos.html#edificios">Edificios</a>
+                        <a href="proyectos.html#corporativos">Corporativos</a>
+                        <a href="proyectos.html#culturales">Culturales</a>
+                        <a href="proyectos.html#concursos">Concursos</a>
+                    </div>
+                </div>
+                <a href="mp.html">MP</a>
+                <a href="contactos.html">CONTACTOS</a>
+                <a href="trayectoria.html">TRAYECTORIA</a>
+                <a href="equipo.html">EQUIPO</a>
+                <a href="somos.html">SOMOS</a>
+            </nav>
+            <div class="nav-right-group">
+                <button id="nav-audio-toggle" class="nav-audio-btn" title="Toggle Audio"><i class="fas fa-volume-mute"></i></button>
+                <button id="menuToggle" class="menu-toggle-btn" aria-label="Abrir Menú"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+    <!-- Fullscreen Mobile Overlay Menu -->
+    <nav id="mobileMenu" class="overlay-menu" aria-label="Menú móvil">
+        <button id="menuClose" class="menu-close-btn" aria-label="Cerrar Menú">✕</button>
+        <div class="overlay-menu-links">
+            <a href="index.html">INICIO</a>
+            <a href="proyectos.html">PROYECTOS</a>
+            <a href="mp.html">MP</a>
+            <a href="contactos.html">CONTACTOS</a>
+            <a href="trayectoria.html">TRAYECTORIA</a>
+            <a href="equipo.html">EQUIPO</a>
+            <a href="somos.html">SOMOS</a>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <!-- 6-part Grid Overlay Navigation -->
+        <div class="container">
+            <div class="project-deep-nav">
+                <!-- Background image of the project -->
+                <div class="project-bg-container">
+                    <img src="assets/fondo.jpg" class="project-bg" alt="Proyecto 1" onerror="this.src='https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600'">
+                    <div class="project-overlay-title">PROYECTO 1</div>
+                </div>
+                
+                <div class="deep-nav-grid">
+                    <a href="biografia.html" class="deep-nav-item">
+                        <div class="hover-bg"></div>
+                        <span>BIOGRAFIA</span>
+                    </a>
+                    <a href="planos.html" class="deep-nav-item">
+                        <div class="hover-bg"></div>
+                        <span>PLANOS</span>
+                    </a>
+                    <a href="area.html" class="deep-nav-item">
+                        <div class="hover-bg"></div>
+                        <span>AREA</span>
+                    </a>
+                    <a href="renders.html" class="deep-nav-item">
+                        <div class="hover-bg"></div>
+                        <span>RENDERS</span>
+                    </a>
+                    <a href="obra.html" class="deep-nav-item">
+                        <div class="hover-bg"></div>
+                        <span>OBRA</span>
+                    </a>
+                    <a href="final.html" class="deep-nav-item">
+                        <div class="hover-bg"></div>
+                        <span>FINAL</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container section">
+            <h3 class="related-title">PROYECTOS RELACIONADOS</h3>
+            <div class="gallery-grid related-grid">
+                <a href="proyecto-detalle.html" class="gallery-item">
+                    <img src="assets/fondo.jpg" alt="Rel 1" onerror="this.src='https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400'">
+                    <div class="overlay"><span>PROYECTO 4</span></div>
+                </a>
+                <a href="proyecto-detalle.html" class="gallery-item">
+                    <img src="assets/fondo.jpg" alt="Rel 2" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400'">
+                    <div class="overlay"><span>PROYECTO 5</span></div>
+                </a>
+                <a href="proyecto-detalle.html" class="gallery-item">
+                    <img src="assets/fondo.jpg" alt="Rel 3" onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?w=400'">
+                    <div class="overlay"><span>PROYECTO 6</span></div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="grey-bar footer-global">
+        <div class="container footer-bar">
+            <span class="logo-text"><strong>MENTE</strong> PROPIA</span>
+            <div class="footer-socials">
+                <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/59175016970" target="_blank" class="social-circle"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-circle"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <audio id="bg-audio" loop><source src="assets/musica.mp3" type="audio/mpeg"></audio>
+</body>
+</html>
