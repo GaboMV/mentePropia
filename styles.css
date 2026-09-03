@@ -113,15 +113,69 @@ img { max-width: 100%; display: block; }
 .logo-text { font-family: var(--font-heading); font-size: 1.5rem; }
 .logo-text strong { font-weight: 700; }
 
-.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-.gallery-item { position: relative; aspect-ratio: 1; overflow: hidden; background: #eee; }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: transform 0.5s, filter 0.5s; }
-.gallery-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
+.gallery-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 4px; 
+}
 
-.gallery-item .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.3s; pointer-events: none; }
-.gallery-item:hover .overlay { opacity: 1; }
-.gallery-item .overlay span { color: #fff; font-family: var(--font-heading); font-size: 1.2rem; font-weight: 400; letter-spacing: 2px; transform: translateY(10px); transition: 0.3s; }
-.gallery-item:hover .overlay span { transform: translateY(0); }
+.gallery-item { 
+    position: relative; 
+    aspect-ratio: 4 / 3; 
+    overflow: hidden; 
+    background: #181818; 
+    display: block;
+}
+
+.gallery-item.horizontal { aspect-ratio: 16 / 10; }
+.gallery-item.vertical { aspect-ratio: 3 / 4; }
+
+.gallery-item img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: center center;
+    filter: grayscale(100%); 
+    transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.6s ease; 
+    display: block;
+}
+
+.gallery-item:hover img { 
+    filter: grayscale(0%); 
+    transform: scale(1.06); 
+}
+
+.gallery-item .overlay { 
+    position: absolute; 
+    inset: 0; 
+    background: rgba(0,0,0,0.55); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    opacity: 0; 
+    transition: opacity 0.35s ease; 
+    pointer-events: none; 
+    z-index: 2;
+}
+
+.gallery-item:hover .overlay { 
+    opacity: 1; 
+}
+
+.gallery-item .overlay span { 
+    color: #ffffff; 
+    font-family: var(--font-heading, 'Montserrat', sans-serif); 
+    font-size: 1.15rem; 
+    font-weight: 600; 
+    letter-spacing: 2px; 
+    transform: translateY(8px); 
+    transition: transform 0.35s ease; 
+    text-transform: uppercase;
+}
+
+.gallery-item:hover .overlay span { 
+    transform: translateY(0); 
+}
 
 .related-title { text-align: center; font-family: var(--font-heading); font-weight: 700; margin-bottom: 30px; font-size: 1.2rem; letter-spacing: 1px; }
 .related-grid { gap: 20px; }
@@ -155,11 +209,50 @@ img { max-width: 100%; display: block; }
 .contact-info-right .tel, .contact-info-right .email { font-size: 1rem; color: #666; margin-bottom: 8px; }
 .contact-info-right .email { color: #888; text-decoration: underline; }
 
-/* ===== TRAYECTORIA ===== */
-.sommet-logo { margin-bottom: 40px; }
-.sommet-logo h2 { font-family: var(--font-heading); font-size: 3rem; font-weight: 300; letter-spacing: 5px; margin-bottom: 5px; }
-.sommet-logo p { font-family: var(--font-heading); font-size: 0.85rem; letter-spacing: 3px; font-weight: 600; }
-.sommet-logo small { display: block; margin-top: 15px; font-size: 0.7rem; color: #888; letter-spacing: 1px; }
+/* ===== TRAYECTORIA: SOMMET BRANDING ===== */
+.sommet-logo {
+    text-align: center;
+    margin: 35px auto 45px auto;
+    max-width: 900px;
+    padding: 0 15px;
+}
+
+.sommet-logo h2 {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: clamp(2.8rem, 6vw, 4.4rem);
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    margin: 0 0 12px 0;
+    line-height: 1.1;
+    padding-left: 0.28em; /* optical centering */
+}
+
+.sommet-logo p {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: clamp(0.95rem, 2vw, 1.22rem);
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    margin: 0 0 14px 0;
+    line-height: 1.3;
+    padding-left: 0.3em; /* optical centering */
+}
+
+.sommet-logo small {
+    display: block;
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    color: #8e8e8e;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.4;
+    padding-left: 0.22em; /* optical centering */
+}
 
 .map-container { position: relative; max-width: 800px; margin: 0 auto 60px; }
 .world-map { width: 100%; opacity: 0.8; }
@@ -563,6 +656,19 @@ main, .page-content { flex: 1 0 auto; }
     }
 
     /* 3. Proyectos & Proyectos Relacionados: Overlaid Top-Left Title */
+    .gallery-grid {
+        gap: 12px;
+    }
+
+    .gallery-item {
+        aspect-ratio: 16 / 11;
+        border-radius: 6px;
+    }
+
+    .gallery-item.vertical {
+        aspect-ratio: 4 / 5;
+    }
+
     .gallery-item .overlay {
         opacity: 1;
         background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 50%);
@@ -571,6 +677,7 @@ main, .page-content { flex: 1 0 auto; }
         align-items: flex-start;
         padding: 14px 16px;
         pointer-events: none;
+        z-index: 2;
     }
 
     .gallery-item .overlay span {
