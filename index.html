@@ -65,15 +65,24 @@
     <main>
         <!-- Inicio Section -->
         <section id="inicio" class="hero-section">
-            <video autoplay muted loop playsinline class="hero-video">
-                <source src="assets/video.mp4" type="video/mp4">
+            <!-- Ambient blurred video backdrop that fills the entire screen, extending the video colors and eliminating black side bars -->
+            <video autoplay muted loop playsinline class="hero-video-ambient" id="hero-video-ambient" aria-hidden="true">
+                <source id="hero-video-ambient-source" src="assets/video.mp4" type="video/mp4">
+            </video>
+            
+            <!-- Soft vignette blend overlay -->
+            <div class="hero-ambient-vignette"></div>
+
+            <!-- Main crisp video -->
+            <video autoplay muted loop playsinline class="hero-video" id="hero-video">
+                <source id="hero-video-source" src="assets/video.mp4" type="video/mp4">
             </video>
             
             <div class="hero-bottom-socials">
-                <a href="https://wa.me/59175016970" target="_blank" class="social-circle"><i class="fab fa-whatsapp"></i></a>
-                <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-circle"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/mentepropiaai/?locale=es_LA" target="_blank" rel="noopener noreferrer" class="social-circle" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/59165117503" target="_blank" rel="noopener noreferrer" class="social-circle" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/mentepropia.ai/" target="_blank" rel="noopener noreferrer" class="social-circle" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@mentepropia.ai?_r=1&_t=ZS-9ApUSbqWD1Y" target="_blank" rel="noopener noreferrer" class="social-circle" title="TikTok"><i class="fab fa-tiktok"></i></a>
             </div>
         </section>
     </main>

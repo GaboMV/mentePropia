@@ -55,58 +55,182 @@
     </nav>
 
     <main class="page-content">
-        <!-- 6-part Grid Overlay Navigation -->
+        <!-- Dynamic Uncropped Segmented Grid Navigation -->
         <div class="container">
-            <div class="project-deep-nav">
-                <!-- Background image of the project -->
-                <div class="project-bg-container">
-                    <img src="assets/PROJECT1.png" class="project-bg" alt="Proyecto 1" onerror="this.src='assets/fondo.jpg'">
-                    <div class="project-overlay-title">PROYECTO 1</div>
-                </div>
+            <div class="project-deep-nav" style="--bg-img: url('assets/PROJECT1.png');">
+                <!-- Base image: adapts dynamically to any aspect ratio without cutting, grayscale by default -->
+                <img src="assets/PROJECT1.png" class="project-base-img" alt="Proyecto Detalle" onerror="this.src='assets/fondo.jpg'">
                 
                 <div class="deep-nav-grid">
-                    <a href="biografia.html" class="deep-nav-item">
-                        <div class="hover-bg"></div>
-                        <span>BIOGRAFIA</span>
+                    <a href="#stage-detail-section" class="deep-nav-item item-1" data-stage="idea-fuerza">
+                        <div class="segment-color"></div>
+                        <div class="segment-shade"></div>
+                        <span>IDEA FUERZA</span>
                     </a>
-                    <a href="planos.html" class="deep-nav-item">
-                        <div class="hover-bg"></div>
+                    <a href="#stage-detail-section" class="deep-nav-item item-2" data-stage="bocetos">
+                        <div class="segment-color"></div>
+                        <div class="segment-shade"></div>
+                        <span>BOCETOS</span>
+                    </a>
+                    <a href="#stage-detail-section" class="deep-nav-item item-3" data-stage="planos">
+                        <div class="segment-color"></div>
+                        <div class="segment-shade"></div>
                         <span>PLANOS</span>
                     </a>
-                    <a href="area.html" class="deep-nav-item">
-                        <div class="hover-bg"></div>
-                        <span>AREA</span>
+                    <a href="#stage-detail-section" class="deep-nav-item item-4" data-stage="3d-render">
+                        <div class="segment-color"></div>
+                        <div class="segment-shade"></div>
+                        <span>3D RENDER</span>
                     </a>
-                    <a href="renders.html" class="deep-nav-item">
-                        <div class="hover-bg"></div>
-                        <span>RENDERS</span>
+                    <a href="#stage-detail-section" class="deep-nav-item item-5" data-stage="preparacion-terreno">
+                        <div class="segment-color"></div>
+                        <div class="segment-shade"></div>
+                        <span>PREPARACIÓN DEL TERRENO</span>
                     </a>
-                    <a href="obra.html" class="deep-nav-item">
-                        <div class="hover-bg"></div>
+                    <a href="#stage-detail-section" class="deep-nav-item item-6" data-stage="obra">
+                        <div class="segment-color"></div>
+                        <div class="segment-shade"></div>
                         <span>OBRA</span>
-                    </a>
-                    <a href="final.html" class="deep-nav-item">
-                        <div class="hover-bg"></div>
-                        <span>FINAL</span>
                     </a>
                 </div>
             </div>
         </div>
+
+        <!-- Dynamic In-Page Stage Detail Section (Gallery + Ficha Técnica) -->
+        <section id="stage-detail-section" class="stage-detail-section">
+            <div class="container">
+                <!-- Stage Tabs Navigation -->
+                <div class="stage-nav-tabs">
+                    <button type="button" class="stage-tab-btn" data-stage="idea-fuerza">IDEA FUERZA</button>
+                    <button type="button" class="stage-tab-btn" data-stage="bocetos">BOCETOS</button>
+                    <button type="button" class="stage-tab-btn" data-stage="planos">PLANOS</button>
+                    <button type="button" class="stage-tab-btn" data-stage="3d-render">3D RENDER</button>
+                    <button type="button" class="stage-tab-btn" data-stage="preparacion-terreno">PREPARACIÓN DEL TERRENO</button>
+                    <button type="button" class="stage-tab-btn active" data-stage="obra">OBRA</button>
+                </div>
+
+                <div class="stage-detail-grid">
+                    <!-- Left Column: Gallery / Slider -->
+                    <div class="stage-gallery-col">
+                        <div class="stage-slider-container">
+                            <div class="stage-slider-track">
+                                <img id="stage-gallery-img" src="assets/PROJECT1.png" alt="Galería de la etapa" class="stage-gallery-img" onerror="this.src='assets/fondo.jpg'">
+                            </div>
+                            <button type="button" class="slider-arrow slider-prev" id="sliderPrevBtn" aria-label="Imagen anterior">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button type="button" class="slider-arrow slider-next" id="sliderNextBtn" aria-label="Imagen siguiente">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <div class="slider-counter">
+                                <span id="sliderCurrentIdx">1</span> / <span id="sliderTotalCount">2</span>
+                            </div>
+                        </div>
+
+                        <!-- Stage Footer / Social Share under Photo -->
+                        <div class="stage-gallery-footer">
+                            <div class="stage-social-share">
+                                <a href="https://www.facebook.com/mentepropiaai/?locale=es_LA" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://www.instagram.com/mentepropia.ai/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="https://wa.me/59165117503" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="https://www.tiktok.com/@mentepropia.ai?_r=1&_t=ZS-9ApUSbqWD1Y" target="_blank" rel="noopener noreferrer" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                            </div>
+                            <p class="stage-badge-label" id="stageBadgeLabel">OBRA EN CONSTRUCCIÓN</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Project Title, Premios, Ficha Técnica & Equipo -->
+                    <div class="stage-info-col">
+                        <h2 class="stage-title" id="stageProjectTitle">CASA VB</h2>
+                        <div class="stage-info-divider"></div>
+
+                        <div class="stage-info-block">
+                            <h4 class="stage-block-title">PREMIOS Y MENCIONES</h4>
+                            <p class="stage-block-text" id="stagePremiosText">1er Lugar en la IX Bienal Internacional de Santa Cruz: en la categoría "Proyecto" - 2024</p>
+                        </div>
+
+                        <div class="stage-info-block">
+                            <h4 class="stage-block-title">FICHA TÉCNICA</h4>
+                            <div class="tech-item">
+                                <span class="tech-item-label">Área del terreno:</span>
+                                <span class="tech-item-val" id="techTerreno">1600 m2</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-item-label">Área Construida:</span>
+                                <span class="tech-item-val" id="techConstruida">654,17 m2</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-item-label">Superficie Cubierta:</span>
+                                <span class="tech-item-val" id="techCubierta">391,57 m2</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-item-label">Inicio:</span>
+                                <span class="tech-item-val" id="techInicio">2022</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-item-label">Conclusión:</span>
+                                <span class="tech-item-val" id="techConclusion">2025</span>
+                            </div>
+                        </div>
+
+                        <div class="stage-info-block">
+                            <h4 class="stage-block-title">EQUIPO</h4>
+                            <div class="tech-item">
+                                <span class="tech-item-label">Arquitectura:</span>
+                                <span class="tech-item-val">Mente Propia</span>
+                            </div>
+                            <div class="tech-item team-list-block">
+                                <span class="tech-item-label">Equipo:</span>
+                                <span class="tech-item-val">
+                                    Arq. Sebastián Fernández de Córdova<br>
+                                    Arq. Erika Peinado Vaca Diez<br>
+                                    Arq. Mariano Donoso Rea<br>
+                                    Arq. Carolina Souto<br>
+                                    Arq. Estefani Mendoza<br><br>
+                                    Ing. Luis El-Hage<br>
+                                    Ing. Carolina Chávez<br>
+                                    Ing. Cristhian Balladares
+                                </span>
+                            </div>
+                            <div class="tech-item mt-1">
+                                <span class="tech-item-label">Estructura:</span>
+                                <span class="tech-item-val">Ing. Fernando Aragón Suárez</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         
         <div class="container section">
             <h3 class="related-title">PROYECTOS RELACIONADOS</h3>
             <div class="gallery-grid related-grid">
-                <a href="proyecto-detalle.html" class="gallery-item">
-                    <img src="assets/PROJECT2.png" alt="Rel 1" onerror="this.src='assets/fondo.jpg'">
-                    <div class="overlay"><span>PROYECTO 4</span></div>
+                <a href="proyecto-detalle.html?img=assets/PROJECT2.png&title=TORRE+CAMILA&meta=2024+%7C+LP" class="gallery-item" data-img="assets/PROJECT2.png" data-title="TORRE CAMILA" data-meta="2024 | LP">
+                    <img src="assets/PROJECT2.png" alt="Torre Camila" onerror="this.src='assets/fondo.jpg'">
+                    <div class="overlay">
+                        <div class="overlay-info">
+                            <span class="project-title">TORRE CAMILA</span>
+                            <span class="project-meta">2024 | LP</span>
+                        </div>
+                    </div>
                 </a>
-                <a href="proyecto-detalle.html" class="gallery-item">
-                    <img src="assets/PROJECT1.png" alt="Rel 2" onerror="this.src='assets/fondo.jpg'">
-                    <div class="overlay"><span>PROYECTO 5</span></div>
+                <a href="proyecto-detalle.html?img=assets/PROJECT1.png&title=CASA+VB&meta=2022+%7C+SC" class="gallery-item" data-img="assets/PROJECT1.png" data-title="CASA VB" data-meta="2022 | SC">
+                    <img src="assets/PROJECT1.png" alt="Casa VB" onerror="this.src='assets/fondo.jpg'">
+                    <div class="overlay">
+                        <div class="overlay-info">
+                            <span class="project-title">CASA VB</span>
+                            <span class="project-meta">2022 | SC</span>
+                        </div>
+                    </div>
                 </a>
-                <a href="proyecto-detalle.html" class="gallery-item">
-                    <img src="assets/PROJECT2.png" alt="Rel 3" onerror="this.src='assets/fondo.jpg'">
-                    <div class="overlay"><span>PROYECTO 6</span></div>
+                <a href="proyecto-detalle.html?img=assets/PROJECT2.png&title=CASA+JACARAND%C3%81&meta=2023+%7C+CBBA" class="gallery-item" data-img="assets/PROJECT2.png" data-title="CASA JACARANDÁ" data-meta="2023 | CBBA">
+                    <img src="assets/PROJECT2.png" alt="Casa Jacarandá" onerror="this.src='assets/fondo.jpg'">
+                    <div class="overlay">
+                        <div class="overlay-info">
+                            <span class="project-title">CASA JACARANDÁ</span>
+                            <span class="project-meta">2023 | CBBA</span>
+                        </div>
+                    </div>
                 </a>
             </div>
         </div>
@@ -116,10 +240,10 @@
         <div class="container footer-bar">
             <span class="logo-text"><strong>MENTE</strong> PROPIA</span>
             <div class="footer-socials">
-                <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://wa.me/59175016970" target="_blank" class="social-circle"><i class="fab fa-whatsapp"></i></a>
-                <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-circle"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/mentepropiaai/?locale=es_LA" target="_blank" rel="noopener noreferrer" class="social-circle" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/59165117503" target="_blank" rel="noopener noreferrer" class="social-circle" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/mentepropia.ai/" target="_blank" rel="noopener noreferrer" class="social-circle" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@mentepropia.ai?_r=1&_t=ZS-9ApUSbqWD1Y" target="_blank" rel="noopener noreferrer" class="social-circle" title="TikTok"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
     </footer>
