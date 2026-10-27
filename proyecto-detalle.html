@@ -15,7 +15,8 @@
     <header class="navbar navbar-dark" id="main-nav">
         <div class="container navbar-container">
             <a href="index.html" class="logo"><strong>MENTE</strong> PROPIA</a>
-            <nav class="nav-links">
+            <div class="nav-right-cluster">
+                <nav class="nav-links">
                 <a href="index.html">INICIO</a>
                 <div class="nav-dropdown-container">
                     <a href="proyectos.html">PROYECTOS</a>
@@ -23,20 +24,28 @@
                         <a href="proyectos.html#all">Todos</a>
                         <a href="proyectos.html#casas">Casas</a>
                         <a href="proyectos.html#edificios">Edificios</a>
-                        <a href="proyectos.html#corporativos">Corporativos</a>
+                        <a href="proyectos.html#futuristico">Futurístico</a>
                         <a href="proyectos.html#culturales">Culturales</a>
                         <a href="proyectos.html#concursos">Concursos</a>
                     </div>
                 </div>
-                <a href="mp.html">MP</a>
+                <a href="aa.html">AA</a>
                 <a href="contactos.html">CONTACTOS</a>
                 <a href="trayectoria.html">TRAYECTORIA</a>
                 <a href="equipo.html">EQUIPO</a>
                 <a href="somos.html">SOMOS</a>
             </nav>
-            <div class="nav-right-group">
+                <div class="nav-search-wrap">
+                    <div class="nav-search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="nav-search-input" placeholder="Buscar proyectos..." aria-label="Buscar proyectos">
+                    </div>
+                    <div class="nav-search-results"></div>
+                </div>
+                <div class="nav-right-group">
                 <button id="nav-audio-toggle" class="nav-audio-btn" title="Toggle Audio"><i class="fas fa-volume-mute"></i></button>
                 <button id="menuToggle" class="menu-toggle-btn" aria-label="Abrir Menú"><i class="fas fa-bars"></i></button>
+            </div>
             </div>
         </div>
     </header>
@@ -44,9 +53,13 @@
     <nav id="mobileMenu" class="overlay-menu" aria-label="Menú móvil">
         <button id="menuClose" class="menu-close-btn" aria-label="Cerrar Menú">✕</button>
         <div class="overlay-menu-links">
+            <div class="mobile-search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" class="mobile-search-input" placeholder="Buscar proyectos...">
+            </div>
             <a href="index.html">INICIO</a>
             <a href="proyectos.html">PROYECTOS</a>
-            <a href="mp.html">MP</a>
+            <a href="aa.html">AA</a>
             <a href="contactos.html">CONTACTOS</a>
             <a href="trayectoria.html">TRAYECTORIA</a>
             <a href="equipo.html">EQUIPO</a>
@@ -77,20 +90,29 @@
                         <div class="segment-shade"></div>
                         <span>PLANOS</span>
                     </a>
-                    <a href="#stage-detail-section" class="deep-nav-item item-4" data-stage="3d-render">
+                    <div class="deep-nav-item item-4" data-stage="renders">
                         <div class="segment-color"></div>
                         <div class="segment-shade"></div>
-                        <span>3D RENDER</span>
-                    </a>
+                        <div class="deep-nav-content">
+                            <a href="#stage-detail-section" class="tile-main-link" data-stage="renders">
+                                <span>RENDERS</span>
+                            </a>
+                            <div class="tile-sublinks">
+                                <a href="#stage-detail-section" class="tile-sublink" data-stage="renders" data-sub="exterior">EXTERIOR</a>
+                                <span class="sublink-sep">/</span>
+                                <a href="#stage-detail-section" class="tile-sublink" data-stage="renders" data-sub="interior">INTERIOR</a>
+                            </div>
+                        </div>
+                    </div>
                     <a href="#stage-detail-section" class="deep-nav-item item-5" data-stage="preparacion-terreno">
                         <div class="segment-color"></div>
                         <div class="segment-shade"></div>
                         <span>PREPARACIÓN DEL TERRENO</span>
                     </a>
-                    <a href="#stage-detail-section" class="deep-nav-item item-6" data-stage="obra">
+                    <a href="#stage-detail-section" class="deep-nav-item item-6" data-stage="ejecucion">
                         <div class="segment-color"></div>
                         <div class="segment-shade"></div>
-                        <span>OBRA</span>
+                        <span>EJECUCIÓN</span>
                     </a>
                 </div>
             </div>
@@ -104,14 +126,22 @@
                     <button type="button" class="stage-tab-btn" data-stage="idea-fuerza">IDEA FUERZA</button>
                     <button type="button" class="stage-tab-btn" data-stage="bocetos">BOCETOS</button>
                     <button type="button" class="stage-tab-btn" data-stage="planos">PLANOS</button>
-                    <button type="button" class="stage-tab-btn" data-stage="3d-render">3D RENDER</button>
+                    <button type="button" class="stage-tab-btn active" data-stage="renders">RENDERS</button>
                     <button type="button" class="stage-tab-btn" data-stage="preparacion-terreno">PREPARACIÓN DEL TERRENO</button>
-                    <button type="button" class="stage-tab-btn active" data-stage="obra">OBRA</button>
+                    <button type="button" class="stage-tab-btn" data-stage="ejecucion">EJECUCIÓN</button>
+                    <button type="button" class="stage-tab-btn" data-stage="portafolio">PORTAFOLIO</button>
                 </div>
 
                 <div class="stage-detail-grid">
                     <!-- Left Column: Gallery / Slider -->
                     <div class="stage-gallery-col">
+                        <!-- Renders Sub-filter (Exterior / Interior) -->
+                        <div class="render-subfilter-nav show" id="renderSubfilterNav">
+                            <button type="button" class="render-subfilter-btn active" data-sub="all">TODOS</button>
+                            <button type="button" class="render-subfilter-btn" data-sub="exterior">EXTERIOR</button>
+                            <button type="button" class="render-subfilter-btn" data-sub="interior">INTERIOR</button>
+                        </div>
+
                         <div class="stage-slider-container">
                             <div class="stage-slider-track">
                                 <img id="stage-gallery-img" src="assets/PROJECT1.png" alt="Galería de la etapa" class="stage-gallery-img" onerror="this.src='assets/fondo.jpg'">
@@ -123,9 +153,12 @@
                                 <i class="fas fa-chevron-right"></i>
                             </button>
                             <div class="slider-counter">
-                                <span id="sliderCurrentIdx">1</span> / <span id="sliderTotalCount">2</span>
+                                <span id="sliderCurrentIdx">1</span> / <span id="sliderTotalCount">4</span>
                             </div>
                         </div>
+
+                        <!-- All Thumbnails Strip (Instant Click to Switch) -->
+                        <div class="stage-thumb-strip" id="stageThumbStrip" aria-label="Miniaturas de la galería"></div>
 
                         <!-- Stage Footer / Social Share under Photo -->
                         <div class="stage-gallery-footer">
@@ -135,7 +168,7 @@
                                 <a href="https://wa.me/59165117503" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                                 <a href="https://www.tiktok.com/@mentepropia.ai?_r=1&_t=ZS-9ApUSbqWD1Y" target="_blank" rel="noopener noreferrer" title="TikTok"><i class="fab fa-tiktok"></i></a>
                             </div>
-                            <p class="stage-badge-label" id="stageBadgeLabel">OBRA EN CONSTRUCCIÓN</p>
+                            <p class="stage-badge-label" id="stageBadgeLabel">RENDERS FOTORREALISTAS</p>
                         </div>
                     </div>
 
@@ -196,6 +229,31 @@
                                 <span class="tech-item-label">Estructura:</span>
                                 <span class="tech-item-val">Ing. Fernando Aragón Suárez</span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bocetos Rich Proposal Presentation (Concepto, Metodología e Ideas Fuerza) -->
+                <div class="bocetos-proposal-container" id="bocetosProposalContainer">
+                    <h3 class="bocetos-heading">PROPUESTA CONCEPTUAL Y METODOLOGÍA</h3>
+                    <p class="bocetos-description" id="bocetosProposalDesc">
+                        La conceptualización del proyecto surge del análisis bioclimático y la relación simbiótica entre el contexto urbano y el volumen arquitectónico. A través de diagramas de masa, trazos primarios y modelos topográficos, se definieron los ejes estructurantes que guían el flujo espacial, la iluminación natural y la eficiencia estructural.
+                    </p>
+                    <div class="ideas-fuerza-grid">
+                        <div class="idea-fuerza-card">
+                            <span class="idea-fuerza-num">IDEA FUERZA 01</span>
+                            <h5 class="idea-fuerza-title">Integración con el Entorno</h5>
+                            <p class="idea-fuerza-text">Diálogo respetuoso con el relieve natural y orientación solar estratégica para optimizar la ventilación pasiva y la captura de luz diurna.</p>
+                        </div>
+                        <div class="idea-fuerza-card">
+                            <span class="idea-fuerza-num">IDEA FUERZA 02</span>
+                            <h5 class="idea-fuerza-title">Pureza Geométrica & Masa</h5>
+                            <p class="idea-fuerza-text">Volúmenes puros en voladizo que generan sombras proyectadas, reduciendo la carga térmica y aportando una firma arquitectónica icónica.</p>
+                        </div>
+                        <div class="idea-fuerza-card">
+                            <span class="idea-fuerza-num">IDEA FUERZA 03</span>
+                            <h5 class="idea-fuerza-title">Transición Interior-Exterior</h5>
+                            <p class="idea-fuerza-text">Aperturas modulares y galerías continuas que disuelven los límites entre el habitar y el paisaje exterior circundante.</p>
                         </div>
                     </div>
                 </div>

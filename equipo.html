@@ -15,7 +15,8 @@
     <header class="navbar navbar-dark" id="main-nav">
         <div class="container navbar-container">
             <a href="index.html" class="logo"><strong>MENTE</strong> PROPIA</a>
-            <nav class="nav-links">
+            <div class="nav-right-cluster">
+                <nav class="nav-links">
                 <a href="index.html">INICIO</a>
                 <div class="nav-dropdown-container">
                     <a href="proyectos.html">PROYECTOS</a>
@@ -23,20 +24,28 @@
                         <a href="proyectos.html#all">Todos</a>
                         <a href="proyectos.html#casas">Casas</a>
                         <a href="proyectos.html#edificios">Edificios</a>
-                        <a href="proyectos.html#corporativos">Corporativos</a>
+                        <a href="proyectos.html#futuristico">Futurístico</a>
                         <a href="proyectos.html#culturales">Culturales</a>
                         <a href="proyectos.html#concursos">Concursos</a>
                     </div>
                 </div>
-                <a href="mp.html">MP</a>
+                <a href="aa.html">AA</a>
                 <a href="contactos.html">CONTACTOS</a>
                 <a href="trayectoria.html">TRAYECTORIA</a>
                 <a href="equipo.html">EQUIPO</a>
                 <a href="somos.html">SOMOS</a>
             </nav>
-            <div class="nav-right-group">
+                <div class="nav-search-wrap">
+                    <div class="nav-search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="nav-search-input" placeholder="Buscar proyectos..." aria-label="Buscar proyectos">
+                    </div>
+                    <div class="nav-search-results"></div>
+                </div>
+                <div class="nav-right-group">
                 <button id="nav-audio-toggle" class="nav-audio-btn" title="Toggle Audio"><i class="fas fa-volume-mute"></i></button>
                 <button id="menuToggle" class="menu-toggle-btn" aria-label="Abrir Menú"><i class="fas fa-bars"></i></button>
+            </div>
             </div>
         </div>
     </header>
@@ -44,9 +53,13 @@
     <nav id="mobileMenu" class="overlay-menu" aria-label="Menú móvil">
         <button id="menuClose" class="menu-close-btn" aria-label="Cerrar Menú">✕</button>
         <div class="overlay-menu-links">
+            <div class="mobile-search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" class="mobile-search-input" placeholder="Buscar proyectos...">
+            </div>
             <a href="index.html">INICIO</a>
             <a href="proyectos.html">PROYECTOS</a>
-            <a href="mp.html">MP</a>
+            <a href="aa.html">AA</a>
             <a href="contactos.html">CONTACTOS</a>
             <a href="trayectoria.html">TRAYECTORIA</a>
             <a href="equipo.html">EQUIPO</a>
