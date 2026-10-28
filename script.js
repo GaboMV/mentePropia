@@ -868,20 +868,44 @@ function initStageDetailSection() {
 
     let activeStageKey = 'renders';
     let renderSubfilter = 'all'; // 'all', 'exterior', 'interior'
-    let currentSlideIdx = 0;
 
-    const galleryImg = document.getElementById('stage-gallery-img');
     const badgeLabel = document.getElementById('stageBadgeLabel');
-    const currentIdxEl = document.getElementById('sliderCurrentIdx');
-    const totalCountEl = document.getElementById('sliderTotalCount');
-    const prevBtn = document.getElementById('sliderPrevBtn');
-    const nextBtn = document.getElementById('sliderNextBtn');
     const tabBtns = document.querySelectorAll('.stage-tab-btn');
     const deepNavItems = document.querySelectorAll('.deep-nav-item[data-stage]');
-    const thumbStrip = document.getElementById('stageThumbStrip');
     const renderSubfilterNav = document.getElementById('renderSubfilterNav');
     const renderSubfilterBtns = document.querySelectorAll('.render-subfilter-btn');
     const bocetosContainer = document.getElementById('bocetosProposalContainer');
+    const masonryContainer = document.getElementById('stageMasonryGallery');
+    const stageGrid = document.getElementById('stageDetailGrid');
+
+    // Lightbox modal elements
+    const lightboxModal = document.getElementById('galeriaLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    function openLightbox(src, caption) {
+        if (!lightboxModal || !lightboxImg) return;
+        lightboxImg.src = src;
+        if (lightboxCaption) lightboxCaption.textContent = caption || '';
+        lightboxModal.classList.add('active');
+        lightboxModal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeLightbox() {
+        if (!lightboxModal) return;
+        lightboxModal.classList.remove('active');
+        lightboxModal.setAttribute('aria-hidden', 'true');
+    }
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+    if (lightboxModal) {
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) closeLightbox();
+        });
+    }
 
     function getCurrentImages() {
         if (activeStageKey === 'renders') {
@@ -893,71 +917,73 @@ function initStageDetailSection() {
         return stageData.images || [];
     }
 
-    function renderThumbnailStrip() {
-        if (!thumbStrip) return;
+    // Dynamic Masonry CSS Grid Builder
+    function renderMasonryGallery() {
+        if (!masonryContainer) return;
         const images = getCurrentImages();
-        thumbStrip.innerHTML = '';
-        images.forEach((item, index) => {
-            const thumb = document.createElement('img');
-            thumb.src = item.src;
-            thumb.alt = item.label || `Miniatura ${index + 1}`;
-            thumb.className = 'stage-thumb-item' + (index === currentSlideIdx ? ' active' : '');
-            thumb.addEventListener('click', (e) => {
-                e.preventDefault();
-                currentSlideIdx = index;
-                updateSliderView(true);
-            });
-            thumbStrip.appendChild(thumb);
-        });
-    }
+        masonryContainer.innerHTML = '';
 
-    function updateSliderView(fade = true) {
-        const images = getCurrentImages();
-        if (images.length === 0) return;
-
-        if (currentSlideIdx >= images.length) currentSlideIdx = 0;
-        if (currentSlideIdx < 0) currentSlideIdx = images.length - 1;
-
-        const currentItem = images[currentSlideIdx];
-        const stageData = stageGalleries[activeStageKey] || stageGalleries['renders'];
-
-        if (badgeLabel) {
-            badgeLabel.textContent = (currentItem && currentItem.label) ? currentItem.label.toUpperCase() : stageData.badge;
-        }
-        if (currentIdxEl) currentIdxEl.textContent = currentSlideIdx + 1;
-        if (totalCountEl) totalCountEl.textContent = images.length;
-
-        // Update active thumbnail in strip
-        if (thumbStrip) {
-            const thumbs = thumbStrip.querySelectorAll('.stage-thumb-item');
-            thumbs.forEach((t, i) => {
-                if (i === currentSlideIdx) {
-                    t.classList.add('active');
-                    t.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
-                } else {
-                    t.classList.remove('active');
-                }
-            });
-        }
-
-        if (galleryImg && currentItem) {
-            if (fade) {
-                galleryImg.style.opacity = '0';
-                setTimeout(() => {
-                    galleryImg.src = currentItem.src;
-                    galleryImg.style.opacity = '1';
-                }, 160);
-            } else {
-                galleryImg.src = currentItem.src;
-                galleryImg.style.opacity = '1';
+        // Configure Layout Mode according to stage
+        if (stageGrid) {
+            stageGrid.classList.remove('mode-visual-heavy', 'mode-idea-fuerza', 'mode-ejecucion');
+            if (activeStageKey === 'renders' || activeStageKey === 'planos' || activeStageKey === 'bocetos') {
+                stageGrid.classList.add('mode-visual-heavy');
+            } else if (activeStageKey === 'idea-fuerza') {
+                stageGrid.classList.add('mode-idea-fuerza');
+            } else if (activeStageKey === 'ejecucion' || activeStageKey === 'preparacion-terreno') {
+                stageGrid.classList.add('mode-ejecucion');
             }
         }
+
+        const stageData = stageGalleries[activeStageKey] || stageGalleries['renders'];
+        if (badgeLabel) {
+            badgeLabel.textContent = stageData.badge || 'GALERÍA DE PROYECTO';
+        }
+
+        // Render each image with requested class distribution:
+        // - Bocetos, Planos, Renders: .img-grande (2x2) dominates, accompanied by .img-lateral (1x2) and .img-pequena (1x1). Minimal text space.
+        // - Idea Fuerza: balanced medium items (.img-lateral, .img-pequena).
+        // - Ejecución: .img-grande (general overview), .img-lateral (columns/structure), .img-pequena (details).
+        images.forEach((item, index) => {
+            let sizeClass = 'img-pequena';
+            if (activeStageKey === 'renders' || activeStageKey === 'planos' || activeStageKey === 'bocetos') {
+                if (index === 0) sizeClass = 'img-grande';
+                else if (index === 1) sizeClass = 'img-lateral';
+                else if (index === 2) sizeClass = 'img-pequena';
+                else if (index === 3) sizeClass = 'img-pequena';
+                else if (index === 4) sizeClass = 'img-lateral';
+                else sizeClass = 'img-pequena';
+            } else if (activeStageKey === 'idea-fuerza') {
+                if (index === 0) sizeClass = 'img-lateral';
+                else sizeClass = 'img-pequena';
+            } else if (activeStageKey === 'ejecucion' || activeStageKey === 'preparacion-terreno') {
+                if (index === 0) sizeClass = 'img-grande';
+                else if (index === 1) sizeClass = 'img-lateral';
+                else sizeClass = 'img-pequena';
+            } else {
+                if (index === 0) sizeClass = 'img-grande';
+                else if (index % 3 === 1) sizeClass = 'img-lateral';
+                else sizeClass = 'img-pequena';
+            }
+
+            const itemEl = document.createElement('div');
+            itemEl.className = `galeria-item ${sizeClass}`;
+            itemEl.innerHTML = `
+                <img src="${item.src}" alt="${item.label || 'Imagen de la etapa'}" onerror="this.src='assets/fondo.jpg'">
+                <span class="galeria-caption">${item.label || ''}</span>
+            `;
+
+            itemEl.addEventListener('click', () => {
+                openLightbox(item.src, item.label);
+            });
+
+            masonryContainer.appendChild(itemEl);
+        });
     }
 
     function selectStage(stageKey, scrollToSection = false, specificSubfilter = null) {
         if (!stageGalleries[stageKey]) return;
         activeStageKey = stageKey;
-        currentSlideIdx = 0;
 
         if (specificSubfilter) {
             renderSubfilter = specificSubfilter;
@@ -981,7 +1007,7 @@ function initStageDetailSection() {
 
         // Toggle Bocetos Proposal Presentation Container
         if (bocetosContainer) {
-            if (stageKey === 'bocetos') {
+            if (stageKey === 'bocetos' || stageKey === 'idea-fuerza') {
                 bocetosContainer.classList.add('show');
             } else {
                 bocetosContainer.classList.remove('show');
@@ -997,8 +1023,7 @@ function initStageDetailSection() {
             }
         });
 
-        renderThumbnailStrip();
-        updateSliderView(true);
+        renderMasonryGallery();
 
         if (scrollToSection) {
             stageSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1032,30 +1057,9 @@ function initStageDetailSection() {
             renderSubfilterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             renderSubfilter = btn.getAttribute('data-sub') || 'all';
-            currentSlideIdx = 0;
-            renderThumbnailStrip();
-            updateSliderView(true);
+            renderMasonryGallery();
         });
     });
-
-    // Slider Prev / Next controls
-    if (prevBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            currentSlideIdx--;
-            updateSliderView(true);
-        });
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            currentSlideIdx++;
-            updateSliderView(true);
-        });
-    }
 
     // Stage Tab buttons
     tabBtns.forEach(btn => {

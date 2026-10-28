@@ -131,8 +131,8 @@
                     <button type="button" class="stage-tab-btn" data-stage="portafolio">PORTAFOLIO</button>
                 </div>
 
-                <div class="stage-detail-grid">
-                    <!-- Left Column: Gallery / Slider -->
+                <div class="stage-detail-grid" id="stageDetailGrid">
+                    <!-- Left Column: Masonry Gallery (CSS Grid dense) -->
                     <div class="stage-gallery-col">
                         <!-- Renders Sub-filter (Exterior / Interior) -->
                         <div class="render-subfilter-nav show" id="renderSubfilterNav">
@@ -141,23 +141,8 @@
                             <button type="button" class="render-subfilter-btn" data-sub="interior">INTERIOR</button>
                         </div>
 
-                        <div class="stage-slider-container">
-                            <div class="stage-slider-track">
-                                <img id="stage-gallery-img" src="assets/PROJECT1.png" alt="Galería de la etapa" class="stage-gallery-img" onerror="this.src='assets/fondo.jpg'">
-                            </div>
-                            <button type="button" class="slider-arrow slider-prev" id="sliderPrevBtn" aria-label="Imagen anterior">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button type="button" class="slider-arrow slider-next" id="sliderNextBtn" aria-label="Imagen siguiente">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                            <div class="slider-counter">
-                                <span id="sliderCurrentIdx">1</span> / <span id="sliderTotalCount">4</span>
-                            </div>
-                        </div>
-
-                        <!-- All Thumbnails Strip (Instant Click to Switch) -->
-                        <div class="stage-thumb-strip" id="stageThumbStrip" aria-label="Miniaturas de la galería"></div>
+                        <!-- Dynamic Masonry Gallery -->
+                        <div class="galeria-masonry" id="stageMasonryGallery"></div>
 
                         <!-- Stage Footer / Social Share under Photo -->
                         <div class="stage-gallery-footer">
@@ -304,6 +289,15 @@
             </div>
         </div>
     </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="galeriaLightbox" class="galeria-lightbox" aria-hidden="true">
+        <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Cerrar vista">✕</button>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="Vista ampliada">
+            <p id="lightboxCaption" class="lightbox-caption"></p>
+        </div>
+    </div>
 
     <script src="script.js"></script>
         <button id="floating-audio-toggle" class="floating-audio-btn" title="Activar / Desactivar Música" aria-label="Control de audio">
