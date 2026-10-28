@@ -1926,3 +1926,159 @@ main, .page-content { flex: 1 0 auto; }
     margin: 0;
 }
 
+/* ==========================================================================
+   GALERÍA MASONRY RESPONSIVE CON CSS GRID
+   ========================================================================== */
+
+/* Contenedor principal de la galería */
+.galeria-masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-flow: dense;
+    grid-auto-rows: minmax(160px, auto);
+    gap: 16px;
+    width: 100%;
+    margin: 25px 0;
+}
+
+/* Ítem individual de la galería */
+.galeria-item {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #181818;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.galeria-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Regla indispensable para imágenes: mantiene su aspecto sin recortar ni distorsionar */
+.galeria-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.galeria-item:hover img {
+    transform: scale(1.02);
+}
+
+/* 1. .img-pequena: Ocupa el espacio base de 1 columna y 1 fila */
+.img-pequena {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+/* 2. .img-lateral: Diseñada para posicionarse a un costado, 1 columna y múltiples filas hacia abajo (vertical / retrato) */
+.img-lateral {
+    grid-column: span 1;
+    grid-row: span 2;
+}
+
+/* 3. .img-grande: Ocupa 2 columnas y 2 filas para destacar visualmente en la cuadrícula */
+.img-grande {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+/* Leyenda opcional para detalles o fichas técnicas */
+.galeria-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 14px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 65%, transparent 100%);
+    color: #FFFFFF;
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+.galeria-item:hover .galeria-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Adaptaciones según Etapa de Proyecto --- */
+
+/* Bocetos, Planos, Renders: Gran predominio visual (imágenes grandes), texto técnico conciso */
+.stage-visual-heavy {
+    margin-top: 15px;
+}
+.stage-minimal-info {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 0.74rem;
+    color: #777777;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+/* Idea Fuerza: Espacio mediano compartido equitativamente para descripción conceptual e imágenes */
+.stage-idea-fuerza-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 30px;
+    align-items: start;
+    margin-top: 20px;
+}
+@media (max-width: 900px) {
+    .stage-idea-fuerza-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Ejecución / Obra: Balance sobrio entre progreso constructivo y bitácora técnica */
+.stage-ejecucion-layout {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 30px;
+    align-items: start;
+    margin-top: 20px;
+}
+@media (max-width: 900px) {
+    .stage-ejecucion-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Responsividad en pantallas estrechas */
+@media (max-width: 600px) {
+    .galeria-masonry {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+    .img-grande {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+}
+
+@media (max-width: 380px) {
+    .galeria-masonry {
+        grid-template-columns: 1fr;
+    }
+    .img-grande,
+    .img-lateral,
+    .img-pequena {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+}
+
