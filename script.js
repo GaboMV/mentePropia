@@ -3,23 +3,7 @@
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Audio Toggle Logic ---
-    const bgAudio = document.getElementById('bg-audio');
-    const audioToggle = document.getElementById('audio-toggle');
-    
-    if(bgAudio && audioToggle) {
-        audioToggle.addEventListener('click', () => {
-            if (bgAudio.paused) {
-                bgAudio.play();
-                audioToggle.querySelector('.icon').textContent = '🔊';
-            } else {
-                bgAudio.pause();
-                audioToggle.querySelector('.icon').textContent = '🔇';
-            }
-        });
-    }
-
-    // --- Navbar Fade on Scroll Logic ---
+    // --- Navbar Behavior & Fade on Scroll ---
     let lastScrollY = window.scrollY;
     const navbar = document.getElementById('main-nav');
     
@@ -32,6 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             lastScrollY = window.scrollY;
         });
+
+        // Home navbar touch / click toggle support
+        if (navbar.classList.contains('navbar-home')) {
+            navbar.addEventListener('click', (e) => {
+                if (!e.target.closest('.nav-links a') && !e.target.closest('.nav-search-input')) {
+                    navbar.classList.toggle('header-revealed');
+                }
+            });
+            document.addEventListener('click', (e) => {
+                if (!navbar.contains(e.target)) {
+                    navbar.classList.remove('header-revealed');
+                }
+            });
+        }
     }
 
     // --- Unified Projects Filtering Logic (Desktop & Mobile Chips) ---
@@ -505,43 +503,66 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================================================
-// 3. GLOBAL AUDIO LOGIC
+// 3. GLOBAL FLOATING AUDIO CONTROLLER (Bottom Right)
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('bg-audio');
-    const audioBtn = document.getElementById('nav-audio-toggle');
+    if (!audio) return;
+
+    let audioBtn = document.getElementById('floating-audio-toggle') || document.querySelector('.floating-audio-btn');
     
-    if(audio && audioBtn) {
-        const icon = audioBtn.querySelector('i');
-        
-        const isPlaying = localStorage.getItem('siteAudioPlaying') === 'true';
-        const savedTime = localStorage.getItem('siteAudioTime');
-        if(savedTime) { audio.currentTime = parseFloat(savedTime); }
-        setInterval(() => { if(!audio.paused) localStorage.setItem('siteAudioTime', audio.currentTime); }, 500);
-        
-        if (isPlaying) {
-            audio.play().catch(e => {
-                console.log("Autoplay blocked by browser.");
-                localStorage.setItem('siteAudioPlaying', 'false');
-                icon.className = 'fas fa-volume-mute';
-            });
-            icon.className = 'fas fa-volume-up';
-        } else {
-            icon.className = 'fas fa-volume-mute';
-        }
-        
-        audioBtn.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play();
-                icon.className = 'fas fa-volume-up';
-                localStorage.setItem('siteAudioPlaying', 'true');
-            } else {
-                audio.pause();
-                icon.className = 'fas fa-volume-mute';
-                localStorage.setItem('siteAudioPlaying', 'false');
-            }
-        });
+    // Auto-create floating button if not present in the DOM
+    if (!audioBtn) {
+        audioBtn = document.createElement('button');
+        audioBtn.id = 'floating-audio-toggle';
+        audioBtn.className = 'floating-audio-btn';
+        audioBtn.title = 'Activar / Desactivar Música';
+        audioBtn.setAttribute('aria-label', 'Control de audio');
+        audioBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        document.body.appendChild(audioBtn);
     }
+    
+    const icon = audioBtn.querySelector('i');
+    
+    function setPlayingState(playing) {
+        if (playing) {
+            audioBtn.classList.add('is-playing');
+            if (icon) icon.className = 'fas fa-volume-up';
+        } else {
+            audioBtn.classList.remove('is-playing');
+            if (icon) icon.className = 'fas fa-volume-mute';
+        }
+    }
+
+    const isPlaying = localStorage.getItem('siteAudioPlaying') === 'true';
+    const savedTime = localStorage.getItem('siteAudioTime');
+    if (savedTime) { audio.currentTime = parseFloat(savedTime); }
+    setInterval(() => { if (!audio.paused) localStorage.setItem('siteAudioTime', audio.currentTime); }, 500);
+    
+    if (isPlaying) {
+        audio.play().then(() => {
+            setPlayingState(true);
+        }).catch(e => {
+            console.log("Autoplay blocked by browser policy, awaiting interaction.");
+            localStorage.setItem('siteAudioPlaying', 'false');
+            setPlayingState(false);
+        });
+    } else {
+        setPlayingState(false);
+    }
+    
+    audioBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play().then(() => {
+                setPlayingState(true);
+                localStorage.setItem('siteAudioPlaying', 'true');
+            }).catch(err => console.log('Audio playback failed:', err));
+        } else {
+            audio.pause();
+            setPlayingState(false);
+            localStorage.setItem('siteAudioPlaying', 'false');
+        }
+    });
 });
 
 // ==========================================================================
