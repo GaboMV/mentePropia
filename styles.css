@@ -91,7 +91,7 @@ img { max-width: 100%; display: block; }
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 0 45px !important;
+    padding: 0 18px 0 32px !important;
     box-sizing: border-box !important;
 }
 
@@ -108,12 +108,12 @@ img { max-width: 100%; display: block; }
 .logo strong { font-weight: 700; }
 .logo:hover { opacity: 0.88; }
 
-/* Elements pushed all the way to the far right */
+/* Elements pushed all the way to the far right with compact, clean spacing */
 .nav-right-cluster {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
-    gap: 22px !important;
+    gap: 12px !important;
     margin-left: auto !important;
 }
 
@@ -121,19 +121,20 @@ img { max-width: 100%; display: block; }
     display: flex !important; 
     align-items: center !important;
     justify-content: flex-end !important;
-    gap: 18px !important; 
+    gap: 10px !important; 
 }
 .nav-links > a, 
 .nav-dropdown-container > a { 
     position: relative;
     font-family: var(--font-heading); 
-    font-size: 0.78rem; 
+    font-size: 0.73rem; 
     font-weight: 500; 
     color: rgba(255, 255, 255, 0.85); 
     text-transform: uppercase; 
-    letter-spacing: 1px;
-    padding: 6px 0;
+    letter-spacing: 0.8px;
+    padding: 5px 2px;
     transition: color 0.25s ease, opacity 0.25s ease;
+    white-space: nowrap;
 }
 .nav-links > a:hover, 
 .nav-dropdown-container > a:hover {
@@ -207,7 +208,7 @@ img { max-width: 100%; display: block; }
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 20px;
-    padding: 5px 12px;
+    padding: 3px 10px;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -230,9 +231,9 @@ img { max-width: 100%; display: block; }
 }
 
 .nav-search-box .search-icon {
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     color: #FFFFFF;
-    margin-right: 7px;
+    margin-right: 6px;
     transition: color 0.3s;
 }
 
@@ -253,10 +254,10 @@ img { max-width: 100%; display: block; }
     border: none;
     outline: none;
     font-family: var(--font-heading, 'Montserrat', sans-serif);
-    font-size: 0.78rem;
+    font-size: 0.73rem;
     font-weight: 500;
     color: #FFFFFF;
-    width: 130px;
+    width: 108px;
     transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.3s;
 }
 
