@@ -1507,11 +1507,10 @@ main, .page-content { flex: 1 0 auto; }
 /* Stage Navigation Tabs */
 .stage-nav-tabs {
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     margin-bottom: 35px;
-    padding: 0 16px 15px 16px;
+    padding: 6px 20px 16px 20px;
     border-bottom: 1px solid #E5E5E5;
     overflow-x: auto;
     white-space: nowrap;
@@ -1524,42 +1523,44 @@ main, .page-content { flex: 1 0 auto; }
     display: none;
 }
 
-@media (min-width: 1150px) {
-    .stage-nav-tabs {
-        justify-content: center;
-        padding-left: 0;
-        padding-right: 0;
-    }
+/* Perfect safe-centering: centers when space allows, starts cleanly at left edge with zero clipping on overflow */
+.stage-nav-tabs::before,
+.stage-nav-tabs::after {
+    content: '';
+    margin: auto;
 }
 
 .stage-tab-btn {
     background: transparent;
-    border: 1px solid #D5D5D5;
+    border: 1px solid #D0D0D0;
     border-radius: 30px;
-    padding: 8px 18px;
+    padding: 7px 15px;
     font-family: var(--font-heading, 'Montserrat', sans-serif);
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: #555555;
+    color: #444444;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     outline: none;
     flex-shrink: 0;
+    user-select: none;
 }
 
 .stage-tab-btn:hover {
     color: #000000;
     border-color: #000000;
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(0, 0, 0, 0.04);
+    transform: translateY(-1px);
 }
 
 .stage-tab-btn.active {
     background: #000000;
     color: #FFFFFF;
     border-color: #000000;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
 }
 
 /* 2-Column Grid Layout */
