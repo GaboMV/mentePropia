@@ -384,23 +384,24 @@ img { max-width: 100%; display: block; }
     color: #AAAAAA;
 }
 
-/* Mobile search box */
+/* Mobile search box & live results inside fullscreen menu */
 .mobile-search-box {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.95);
     border: 1px solid #CCCCCC;
     border-radius: 25px;
-    padding: 8px 16px;
-    margin-bottom: 25px;
-    width: 85%;
-    max-width: 320px;
+    padding: 10px 18px;
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 340px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .mobile-search-box i {
-    color: #666666;
-    font-size: 0.9rem;
+    color: #555555;
+    font-size: 0.95rem;
 }
 
 .mobile-search-input {
@@ -408,9 +409,27 @@ img { max-width: 100%; display: block; }
     background: transparent;
     outline: none;
     font-family: var(--font-heading, 'Montserrat', sans-serif);
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     width: 100%;
     color: #222222;
+}
+
+.mobile-search-results {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    max-width: 340px;
+    max-height: 230px;
+    overflow-y: auto;
+    background: #FFFFFF;
+    border: 1px solid #E2E2E2;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+    margin: -14px 0 22px 0;
+}
+
+.mobile-search-results.show {
+    display: flex;
 }
 
 .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
@@ -784,6 +803,35 @@ img { max-width: 100%; display: block; }
     /* Mobile Sidebar Removed */
     .hamburger { display: none !important; }
     .nav-links { display: none !important; }
+    .nav-search-wrap { display: none !important; }
+
+    /* Mobile Header Standard: Logo left + 3-line Hamburger always visible right */
+    .navbar .container,
+    .navbar-container,
+    .navbar .navbar-container {
+        height: 68px !important;
+        padding: 0 16px 0 20px !important;
+    }
+    .page-content {
+        padding-top: 84px;
+    }
+    .navbar.navbar-home .nav-right-cluster {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+    }
+    .navbar.navbar-home:hover,
+    .navbar.navbar-home:focus-within {
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom-color: transparent;
+        box-shadow: none;
+    }
+    .navbar.navbar-dark:hover {
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 2px 14px rgba(0, 0, 0, 0.04);
+    }
 }
 
 @media (max-width: 480px) {
@@ -1008,22 +1056,21 @@ body { min-height: 100vh; display: flex; flex-direction: column; margin: 0; }
 main, .page-content { flex: 1 0 auto; }
 .footer-global { flex-shrink: 0; }
 
-/* Navbar Hover */
+/* Navbar Hover (desktop only so mobile taps do not trigger sticky hover states) */
 .navbar { transition: background-color 0.3s ease, box-shadow 0.3s ease; }
-.navbar:hover {
-    background-color: rgba(0, 0, 0, 0.6);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-@media (min-width: 769px) { 
+@media (hover: hover) and (min-width: 769px) {
+    .navbar:hover {
+        background-color: rgba(0, 0, 0, 0.6);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
     .navbar:hover .logo, 
     .navbar:hover .nav-links > a, 
     .navbar:hover .nav-dropdown-container > a { 
         color: #FFF !important; 
-    } 
-}
-.navbar:hover .hamburger span {
-    background-color: #FFF !important;
+    }
+    .navbar:hover .hamburger span {
+        background-color: #FFF !important;
+    }
 }
 
 /* ===== MAP MODULE 3D RELIEF & INTERACTIVITY ===== */
@@ -1381,23 +1428,39 @@ main, .page-content { flex: 1 0 auto; }
     display: none;
     background: transparent;
     border: none;
-    font-size: 1.25rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    font-size: 1.3rem;
     color: #FFFFFF;
     cursor: pointer;
-    padding: 6px 10px;
-    transition: opacity 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    padding: 0;
+    transition: opacity 0.3s ease, color 0.3s ease, background 0.2s ease, transform 0.2s ease;
     outline: none;
 }
 .menu-toggle-btn:active {
-    transform: scale(0.9);
+    transform: scale(0.92);
+}
+
+.navbar.navbar-home .menu-toggle-btn {
+    background: rgba(0, 0, 0, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #FFFFFF;
 }
 
 .navbar.navbar-dark .menu-toggle-btn {
-    color: #222222;
+    color: #111111;
+}
+.navbar.navbar-dark .menu-toggle-btn:active {
+    background: rgba(0, 0, 0, 0.06);
 }
 
-.navbar:hover .menu-toggle-btn {
-    color: #FFFFFF !important;
+@media (hover: hover) and (min-width: 769px) {
+    .navbar:hover .menu-toggle-btn {
+        color: #FFFFFF !important;
+    }
 }
 
 @media (min-width: 769px) {
@@ -1424,17 +1487,19 @@ main, .page-content { flex: 1 0 auto; }
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 9999;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 10050;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+    transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    overflow-y: auto;
+    padding: 78px 24px 40px;
 }
 
 .overlay-menu.is-open {
@@ -1444,9 +1509,14 @@ main, .page-content { flex: 1 0 auto; }
 
 /* Close Button */
 .menu-close-btn {
-    position: absolute;
-    top: 25px;
-    right: 25px;
+    position: fixed;
+    top: 16px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: transparent;
     border: none;
     font-family: var(--font-heading, 'Montserrat', sans-serif);
@@ -1454,10 +1524,11 @@ main, .page-content { flex: 1 0 auto; }
     font-weight: 300;
     color: #222222;
     cursor: pointer;
-    padding: 10px;
+    padding: 0;
     line-height: 1;
     transition: transform 0.3s ease, opacity 0.3s ease;
     outline: none;
+    z-index: 10051;
 }
 
 .menu-close-btn:hover {
@@ -1472,6 +1543,9 @@ main, .page-content { flex: 1 0 auto; }
     justify-content: center;
     align-items: center;
     text-align: center;
+    width: 100%;
+    max-width: 360px;
+    margin: auto 0;
 }
 
 .overlay-menu-links a {

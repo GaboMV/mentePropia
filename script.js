@@ -17,10 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
             lastScrollY = window.scrollY;
         });
 
-        // Home navbar touch / click toggle support
+        // Home navbar touch / click toggle support (desktop only; mobile uses hamburger menu directly)
         if (navbar.classList.contains('navbar-home')) {
             navbar.addEventListener('click', (e) => {
-                if (!e.target.closest('.nav-links a') && !e.target.closest('.nav-search-input')) {
+                if (window.innerWidth <= 768) return;
+                if (!e.target.closest('.nav-links a') && !e.target.closest('.nav-search-input') && !e.target.closest('#menuToggle')) {
                     navbar.classList.toggle('header-revealed');
                 }
             });
@@ -223,7 +224,20 @@ function initHeaderSearch() {
 
     searchInputs.forEach(input => {
         const wrap = input.closest('.nav-search-wrap');
-        const resultsBox = wrap ? wrap.querySelector('.nav-search-results') : null;
+        let resultsBox = wrap ? wrap.querySelector('.nav-search-results') : null;
+
+        // Support live search results inside mobile overlay menu
+        if (!resultsBox && input.classList.contains('mobile-search-input')) {
+            const mobileBox = input.closest('.mobile-search-box');
+            if (mobileBox && mobileBox.parentElement) {
+                resultsBox = mobileBox.parentElement.querySelector('.mobile-search-results');
+                if (!resultsBox) {
+                    resultsBox = document.createElement('div');
+                    resultsBox.className = 'mobile-search-results';
+                    mobileBox.insertAdjacentElement('afterend', resultsBox);
+                }
+            }
+        }
 
         // Show all projects on focus/click
         input.addEventListener('focus', () => {
@@ -309,8 +323,8 @@ function initHeaderSearch() {
 
     // Close results dropdown when clicking outside
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-search-wrap') && !e.target.closest('.mobile-search-box')) {
-            resultsContainers.forEach(box => box.classList.remove('show'));
+        if (!e.target.closest('.nav-search-wrap') && !e.target.closest('.mobile-search-box') && !e.target.closest('.mobile-search-results')) {
+            document.querySelectorAll('.nav-search-results, .mobile-search-results').forEach(box => box.classList.remove('show'));
         }
     });
 }
@@ -575,7 +589,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuLinks = document.querySelectorAll('.overlay-menu-links a');
 
     if (menuToggle && mobileMenu) {
-        menuToggle.addEventListener('click', () => {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             mobileMenu.classList.add('is-open');
             document.body.style.overflow = 'hidden';
         });
@@ -585,12 +600,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mobileMenu) {
             mobileMenu.classList.remove('is-open');
             document.body.style.overflow = '';
+            const mobileResults = mobileMenu.querySelector('.mobile-search-results');
+            if (mobileResults) mobileResults.classList.remove('show');
         }
     }
 
     if (menuClose) {
         menuClose.addEventListener('click', closeMenu);
     }
+
+    if (mobileMenu) {
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target.closest('.search-result-item')) {
+                closeMenu();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('is-open')) {
+            closeMenu();
+        }
+    });
 
     menuLinks.forEach(link => {
         link.addEventListener('click', closeMenu);
