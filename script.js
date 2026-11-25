@@ -111,13 +111,13 @@ function initHeaderSearch() {
             desc: 'Torre corporativa y residencial vanguardista en San Pedro, La Paz.'
         },
         {
-            title: 'CASA VB',
-            shortTitle: 'CASA VB',
+            title: 'ESDENKA',
+            shortTitle: 'ESDENKA',
             meta: '2022 | SC',
-            category: 'casas',
-            categoryLabel: 'Casas',
+            category: 'edificios',
+            categoryLabel: 'Edificios',
             img: 'assets/PROJECT1.png',
-            desc: 'Residencia unifamiliar con arquitectura bioclimática y voladizos en Santa Cruz.'
+            desc: 'Edificio residencial contemporáneo con interiores de alto confort e iluminación natural en Santa Cruz.'
         },
         {
             title: 'EDIFICIO QUARTIER',
@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mapData = {
         'bolivia': [
             { title: 'Torre Camila PB', city: 'La Paz, Bolivia', year: '2024' },
-            { title: 'Casa VB', city: 'Santa Cruz, Bolivia', year: '2022' },
+            { title: 'ESDENKA', city: 'Santa Cruz, Bolivia', year: '2022' },
             { title: 'Casa Jacarandá', city: 'Cochabamba, Bolivia', year: '2023' },
             { title: 'Edificio Quartier', city: 'Santa Cruz, Bolivia', year: '2023' },
             { title: 'Parque Urbano Nube', city: 'Santa Cruz, Bolivia', year: '2025' }
@@ -623,7 +623,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
 
         const imgSrc = params.get('img') || sessionStorage.getItem('currentProjectImg') || 'assets/PROJECT1.png';
-        const title = params.get('title') || sessionStorage.getItem('currentProjectTitle');
+        let title = params.get('title') || sessionStorage.getItem('currentProjectTitle') || 'ESDENKA';
+        if (title.trim().toUpperCase() === 'CASA VB') {
+            title = 'ESDENKA';
+            sessionStorage.setItem('currentProjectTitle', 'ESDENKA');
+        }
         const meta = params.get('meta') || sessionStorage.getItem('currentProjectMeta');
 
         if (title) {
@@ -760,9 +764,41 @@ function initStageDetailSection() {
 
     const params = new URLSearchParams(window.location.search);
     const currentProjectImg = params.get('img') || sessionStorage.getItem('currentProjectImg') || 'assets/PROJECT1.png';
-    const currentProjectTitle = params.get('title') || sessionStorage.getItem('currentProjectTitle') || 'CASA VB';
+    let currentProjectTitle = params.get('title') || sessionStorage.getItem('currentProjectTitle') || 'ESDENKA';
+    if (currentProjectTitle.trim().toUpperCase() === 'CASA VB') {
+        currentProjectTitle = 'ESDENKA';
+        sessionStorage.setItem('currentProjectTitle', 'ESDENKA');
+    }
     const altProjectImg = currentProjectImg.includes('PROJECT1') ? 'assets/PROJECT2.png' : 'assets/PROJECT1.png';
     const ambientImg = 'assets/fondo.jpg';
+    const isEsdenka = currentProjectTitle.trim().toUpperCase().includes('ESDENKA');
+
+    const esdenkaInteriorImages = [
+        { src: 'assets/ESDENKA/3.jpg', label: 'Galería Cubierta y Parrillero' },
+        { src: 'assets/ESDENKA/4.jpg', label: 'Área Social, Comedor y Barra Integrada' },
+        { src: 'assets/ESDENKA/5.jpg', label: 'Sala de Estar y Área de Entretenimiento' },
+        { src: 'assets/ESDENKA/6.jpg', label: 'Comedor Principal e Iluminación Natural' },
+        { src: 'assets/ESDENKA/7.jpg', label: 'Isla de Cocina y Barra de Desayuno' },
+        { src: 'assets/ESDENKA/8.jpg', label: 'Baño Social con Revestimiento Cálido' },
+        { src: 'assets/ESDENKA/9.jpg', label: 'Cocina Contemporánea y Mobiliario en Madera' },
+        { src: 'assets/ESDENKA/10.jpg', label: 'Barra Social y Cava Integrada' },
+        { src: 'assets/ESDENKA/11.jpg', label: 'Detalle de Barra en Granito y Comedor' },
+        { src: 'assets/ESDENKA/12.jpg', label: 'Dormitorio Principal y Cabecera en Madera' }
+    ];
+
+    const exteriorRenderImages = [
+        { src: currentProjectImg, label: 'Fachada Principal - Vista Frontal' },
+        { src: altProjectImg, label: 'Perspectiva Volumétrica Sur' },
+        { src: ambientImg, label: 'Vista Crepuscular y Paisajismo' }
+    ];
+
+    const interiorRenderImages = isEsdenka
+        ? esdenkaInteriorImages
+        : [
+            { src: altProjectImg, label: 'Área Social y Doble Altura' },
+            { src: currentProjectImg, label: 'Estancia Principal e Iluminación Natural' },
+            { src: ambientImg, label: 'Cocina Integrada y Materialidad' }
+        ];
 
     // Rich Galleries Database for All Stages
     const stageGalleries = {
@@ -796,23 +832,11 @@ function initStageDetailSection() {
         'renders': {
             name: 'Renders',
             badge: 'RENDERS FOTORREALISTAS',
-            exterior: [
-                { src: currentProjectImg, label: 'Fachada Principal - Vista Frontal' },
-                { src: altProjectImg, label: 'Perspectiva Volumétrica Sur' },
-                { src: ambientImg, label: 'Vista Crepuscular y Paisajismo' }
-            ],
-            interior: [
-                { src: altProjectImg, label: 'Área Social y Doble Altura' },
-                { src: currentProjectImg, label: 'Estancia Principal e Iluminación Natural' },
-                { src: ambientImg, label: 'Cocina Integrada y Materialidad' }
-            ],
+            exterior: exteriorRenderImages,
+            interior: interiorRenderImages,
             images: [
-                { src: currentProjectImg, label: 'Fachada Principal (Exterior)' },
-                { src: altProjectImg, label: 'Perspectiva Volumétrica (Exterior)' },
-                { src: ambientImg, label: 'Vista Crepuscular (Exterior)' },
-                { src: altProjectImg, label: 'Área Social y Doble Altura (Interior)' },
-                { src: currentProjectImg, label: 'Estancia Principal (Interior)' },
-                { src: ambientImg, label: 'Cocina Integrada y Materialidad (Interior)' }
+                ...exteriorRenderImages.map(img => ({ src: img.src, label: `${img.label} (Exterior)` })),
+                ...interiorRenderImages.map(img => ({ src: img.src, label: `${img.label} (Interior)` }))
             ]
         },
         'preparacion-terreno': {
@@ -878,34 +902,98 @@ function initStageDetailSection() {
     const masonryContainer = document.getElementById('stageMasonryGallery');
     const stageGrid = document.getElementById('stageDetailGrid');
 
-    // Lightbox modal elements
+    // Lightbox modal elements & carousel state
     const lightboxModal = document.getElementById('galeriaLightbox');
     const lightboxImg = document.getElementById('lightboxImg');
     const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxCounter = document.getElementById('lightboxCounter');
     const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
 
-    function openLightbox(src, caption) {
-        if (!lightboxModal || !lightboxImg) return;
-        lightboxImg.src = src;
-        if (lightboxCaption) lightboxCaption.textContent = caption || '';
+    let lightboxImages = [];
+    let currentLightboxIndex = 0;
+    let touchStartX = 0;
+
+    function updateLightboxSlide() {
+        if (!lightboxImg || !lightboxImages.length) return;
+        const current = lightboxImages[currentLightboxIndex];
+        lightboxImg.src = current.src;
+        lightboxImg.alt = current.label || 'Vista ampliada';
+        if (lightboxCaption) lightboxCaption.textContent = current.label || '';
+        if (lightboxCounter) {
+            lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+        }
+        const showNav = lightboxImages.length > 1;
+        if (lightboxPrev) lightboxPrev.style.display = showNav ? 'flex' : 'none';
+        if (lightboxNext) lightboxNext.style.display = showNav ? 'flex' : 'none';
+    }
+
+    function openLightbox(images, startIndex = 0) {
+        if (!lightboxModal || !lightboxImg || !images || !images.length) return;
+        lightboxImages = images;
+        currentLightboxIndex = Math.max(0, Math.min(startIndex, images.length - 1));
+        updateLightboxSlide();
         lightboxModal.classList.add('active');
         lightboxModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function showLightboxImage(nextIndex) {
+        if (!lightboxImages.length) return;
+        currentLightboxIndex = (nextIndex + lightboxImages.length) % lightboxImages.length;
+        updateLightboxSlide();
     }
 
     function closeLightbox() {
         if (!lightboxModal) return;
         lightboxModal.classList.remove('active');
         lightboxModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
     }
 
     if (lightboxClose) {
         lightboxClose.addEventListener('click', closeLightbox);
     }
+    if (lightboxPrev) {
+        lightboxPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showLightboxImage(currentLightboxIndex - 1);
+        });
+    }
+    if (lightboxNext) {
+        lightboxNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showLightboxImage(currentLightboxIndex + 1);
+        });
+    }
+    if (lightboxImg) {
+        lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+    }
     if (lightboxModal) {
         lightboxModal.addEventListener('click', (e) => {
             if (e.target === lightboxModal) closeLightbox();
         });
+        lightboxModal.addEventListener('touchstart', (e) => {
+            if (e.changedTouches && e.changedTouches.length) {
+                touchStartX = e.changedTouches[0].screenX;
+            }
+        }, { passive: true });
+        lightboxModal.addEventListener('touchend', (e) => {
+            if (!lightboxModal.classList.contains('active') || !e.changedTouches || !e.changedTouches.length) return;
+            const deltaX = e.changedTouches[0].screenX - touchStartX;
+            if (Math.abs(deltaX) > 45) {
+                if (deltaX < 0) showLightboxImage(currentLightboxIndex + 1);
+                else showLightboxImage(currentLightboxIndex - 1);
+            }
+        }, { passive: true });
     }
+    document.addEventListener('keydown', (e) => {
+        if (!lightboxModal || !lightboxModal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        else if (e.key === 'ArrowLeft') showLightboxImage(currentLightboxIndex - 1);
+        else if (e.key === 'ArrowRight') showLightboxImage(currentLightboxIndex + 1);
+    });
 
     function getCurrentImages() {
         if (activeStageKey === 'renders') {
@@ -940,41 +1028,42 @@ function initStageDetailSection() {
             badgeLabel.textContent = stageData.badge || 'GALERÍA DE PROYECTO';
         }
 
-        // Render each image with requested class distribution:
-        // - Bocetos, Planos, Renders: .img-grande (2x2) dominates, accompanied by .img-lateral (1x2) and .img-pequena (1x1). Minimal text space.
-        // - Idea Fuerza: balanced medium items (.img-lateral, .img-pequena).
-        // - Ejecución: .img-grande (general overview), .img-lateral (columns/structure), .img-pequena (details).
+        const total = images.length;
+        const remaining = total - 3;
+
         images.forEach((item, index) => {
             let sizeClass = 'img-pequena';
-            if (activeStageKey === 'renders' || activeStageKey === 'planos' || activeStageKey === 'bocetos') {
-                if (index === 0) sizeClass = 'img-grande';
-                else if (index === 1) sizeClass = 'img-lateral';
-                else if (index === 2) sizeClass = 'img-pequena';
-                else if (index === 3) sizeClass = 'img-pequena';
-                else if (index === 4) sizeClass = 'img-lateral';
-                else sizeClass = 'img-pequena';
-            } else if (activeStageKey === 'idea-fuerza') {
-                if (index === 0) sizeClass = 'img-lateral';
-                else sizeClass = 'img-pequena';
-            } else if (activeStageKey === 'ejecucion' || activeStageKey === 'preparacion-terreno') {
-                if (index === 0) sizeClass = 'img-grande';
-                else if (index === 1) sizeClass = 'img-lateral';
-                else sizeClass = 'img-pequena';
+            if (total === 1) {
+                sizeClass = 'img-completa';
+            } else if (total === 2) {
+                sizeClass = 'img-mediana';
+            } else if (index === 0) {
+                sizeClass = 'img-grande';
+            } else if (index < 3) {
+                sizeClass = 'img-pequena';
             } else {
-                if (index === 0) sizeClass = 'img-grande';
-                else if (index % 3 === 1) sizeClass = 'img-lateral';
-                else sizeClass = 'img-pequena';
+                const remIdx = index - 3;
+                if (remaining === 1) {
+                    sizeClass = 'img-completa';
+                } else if (remaining % 3 === 0) {
+                    sizeClass = 'img-pequena';
+                } else if (remaining % 3 === 2) {
+                    sizeClass = remIdx >= remaining - 2 ? 'img-mediana' : 'img-pequena';
+                } else {
+                    // remaining % 3 === 1 (e.g. 4, 7, 10): end with two rows of 2 (4 medium items)
+                    sizeClass = remIdx >= remaining - 4 ? 'img-mediana' : 'img-pequena';
+                }
             }
 
             const itemEl = document.createElement('div');
             itemEl.className = `galeria-item ${sizeClass}`;
             itemEl.innerHTML = `
-                <img src="${item.src}" alt="${item.label || 'Imagen de la etapa'}" onerror="this.src='assets/fondo.jpg'">
+                <img src="${item.src}" alt="${item.label || 'Imagen de la etapa'}" loading="lazy" onerror="this.src='assets/fondo.jpg'">
                 <span class="galeria-caption">${item.label || ''}</span>
             `;
 
             itemEl.addEventListener('click', () => {
-                openLightbox(item.src, item.label);
+                openLightbox(images, index);
             });
 
             masonryContainer.appendChild(itemEl);

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MENTE PROPIA | Proyecto 1</title>
+    <title>MENTE PROPIA | ESDENKA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -158,7 +158,7 @@
 
                     <!-- Right Column: Project Title, Premios, Ficha Técnica & Equipo -->
                     <div class="stage-info-col">
-                        <h2 class="stage-title" id="stageProjectTitle">CASA VB</h2>
+                        <h2 class="stage-title" id="stageProjectTitle">ESDENKA</h2>
                         <div class="stage-info-divider"></div>
 
                         <div class="stage-info-block">
@@ -256,11 +256,11 @@
                         </div>
                     </div>
                 </a>
-                <a href="proyecto-detalle.html?img=assets/PROJECT1.png&title=CASA+VB&meta=2022+%7C+SC" class="gallery-item" data-img="assets/PROJECT1.png" data-title="CASA VB" data-meta="2022 | SC">
-                    <img src="assets/PROJECT1.png" alt="Casa VB" onerror="this.src='assets/fondo.jpg'">
+                <a href="proyecto-detalle.html?img=assets/PROJECT1.png&title=ESDENKA&meta=2022+%7C+SC" class="gallery-item" data-img="assets/PROJECT1.png" data-title="ESDENKA" data-meta="2022 | SC">
+                    <img src="assets/PROJECT1.png" alt="ESDENKA" onerror="this.src='assets/fondo.jpg'">
                     <div class="overlay">
                         <div class="overlay-info">
-                            <span class="project-title">CASA VB</span>
+                            <span class="project-title">ESDENKA</span>
                             <span class="project-meta">2022 | SC</span>
                         </div>
                     </div>
@@ -291,12 +291,21 @@
     </footer>
 
     <!-- Lightbox Modal -->
-    <div id="galeriaLightbox" class="galeria-lightbox" aria-hidden="true">
+    <div id="galeriaLightbox" class="galeria-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visor de galería">
         <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Cerrar vista">✕</button>
+        <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Imagen anterior">
+            <i class="fas fa-chevron-left"></i>
+        </button>
         <div class="lightbox-content">
             <img id="lightboxImg" src="" alt="Vista ampliada">
-            <p id="lightboxCaption" class="lightbox-caption"></p>
+            <div class="lightbox-meta">
+                <p id="lightboxCaption" class="lightbox-caption"></p>
+                <span id="lightboxCounter" class="lightbox-counter"></span>
+            </div>
         </div>
+        <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Imagen siguiente">
+            <i class="fas fa-chevron-right"></i>
+        </button>
     </div>
 
     <script src="script.js"></script>

@@ -1934,10 +1934,9 @@ main, .page-content { flex: 1 0 auto; }
 /* Contenedor principal de la galería */
 .galeria-masonry {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(6, 1fr);
     grid-auto-flow: dense;
-    grid-auto-rows: minmax(160px, auto);
-    gap: 16px;
+    gap: 14px;
     width: 100%;
     margin: 25px 0;
 }
@@ -1947,12 +1946,9 @@ main, .page-content { flex: 1 0 auto; }
     position: relative;
     border-radius: 6px;
     overflow: hidden;
-    background: #181818;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background: #F4F4F4;
     border: 1px solid rgba(0, 0, 0, 0.08);
+    cursor: pointer;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 
@@ -1961,35 +1957,46 @@ main, .page-content { flex: 1 0 auto; }
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Regla indispensable para imágenes: mantiene su aspecto sin recortar ni distorsionar */
+/* Mantiene proporción 16:9 limpia sin franjas negras ni distorsión */
 .galeria-item img {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
     transition: transform 0.4s ease;
 }
 
 .galeria-item:hover img {
-    transform: scale(1.02);
+    transform: scale(1.03);
 }
 
-/* 1. .img-pequena: Ocupa el espacio base de 1 columna y 1 fila */
-.img-pequena {
-    grid-column: span 1;
-    grid-row: span 1;
-}
-
-/* 2. .img-lateral: Diseñada para posicionarse a un costado, 1 columna y múltiples filas hacia abajo (vertical / retrato) */
+/* 1. .img-pequena: 2 de 6 columnas (3 por fila, o 2 apiladas junto al destaque) */
+.img-pequena,
 .img-lateral {
-    grid-column: span 1;
-    grid-row: span 2;
+    grid-column: span 2;
+    grid-row: span 1;
+    aspect-ratio: 16 / 9;
 }
 
-/* 3. .img-grande: Ocupa 2 columnas y 2 filas para destacar visualmente en la cuadrícula */
+/* 2. .img-mediana: 3 de 6 columnas (2 por fila) */
+.img-mediana {
+    grid-column: span 3;
+    grid-row: span 1;
+    aspect-ratio: 16 / 9;
+}
+
+/* 3. .img-grande: 4 de 6 columnas y 2 filas (alineado exactamente con 2 .img-pequena) */
 .img-grande {
-    grid-column: span 2;
+    grid-column: span 4;
     grid-row: span 2;
+    height: 100%;
+}
+
+/* 4. .img-completa: Ancho completo (6 columnas) */
+.img-completa {
+    grid-column: span 6;
+    grid-row: span 1;
+    aspect-ratio: 16 / 9;
 }
 
 /* Leyenda opcional para detalles o fichas técnicas */
@@ -2060,26 +2067,40 @@ main, .page-content { flex: 1 0 auto; }
 }
 
 /* Responsividad en pantallas estrechas */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .galeria-masonry {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
-    .img-grande {
+    .img-grande,
+    .img-completa {
         grid-column: span 2;
-        grid-row: span 2;
+        grid-row: span 1;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+    .img-mediana,
+    .img-pequena,
+    .img-lateral {
+        grid-column: span 1;
+        grid-row: span 1;
+        aspect-ratio: 16 / 9;
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
     .galeria-masonry {
         grid-template-columns: 1fr;
     }
     .img-grande,
+    .img-completa,
+    .img-mediana,
     .img-lateral,
     .img-pequena {
         grid-column: span 1;
         grid-row: span 1;
+        height: auto;
+        aspect-ratio: 16 / 9;
     }
 }
 
@@ -2135,7 +2156,7 @@ main, .page-content { flex: 1 0 auto; }
     opacity: 1;
 }
 .galeria-lightbox .lightbox-content {
-    max-width: 92vw;
+    max-width: 84vw;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -2144,18 +2165,84 @@ main, .page-content { flex: 1 0 auto; }
 }
 .galeria-lightbox img {
     max-width: 100%;
-    max-height: 82vh;
+    max-height: 80vh;
     object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+    user-select: none;
+}
+.lightbox-meta {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
 }
 .lightbox-caption {
-    margin-top: 14px;
+    margin: 0;
     color: #E0E0E0;
     font-family: var(--font-heading, 'Montserrat', sans-serif);
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     letter-spacing: 1px;
     text-align: center;
+}
+.lightbox-counter {
+    color: rgba(255, 255, 255, 0.75);
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+}
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    z-index: 10001;
+    outline: none;
+}
+.lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.28);
+    border-color: #FFFFFF;
+    transform: translateY(-50%) scale(1.06);
+}
+.lightbox-prev {
+    left: 24px;
+}
+.lightbox-next {
+    right: 24px;
+}
+@media (max-width: 768px) {
+    .galeria-lightbox .lightbox-content {
+        max-width: 94vw;
+    }
+    .lightbox-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 0.95rem;
+        background: rgba(0, 0, 0, 0.55);
+    }
+    .lightbox-prev {
+        left: 10px;
+    }
+    .lightbox-next {
+        right: 10px;
+    }
 }
 .lightbox-close {
     position: absolute;
