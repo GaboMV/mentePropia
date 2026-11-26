@@ -950,8 +950,8 @@ function initStageDetailSection() {
         if (!lightboxImg || !lightboxImages.length) return;
         const current = lightboxImages[currentLightboxIndex];
         lightboxImg.src = current.src;
-        lightboxImg.alt = current.label || 'Vista ampliada';
-        if (lightboxCaption) lightboxCaption.textContent = current.label || '';
+        lightboxImg.alt = 'Vista ampliada';
+        if (lightboxCaption) lightboxCaption.textContent = '';
         if (lightboxCounter) {
             lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
         }
@@ -1089,8 +1089,7 @@ function initStageDetailSection() {
             const itemEl = document.createElement('div');
             itemEl.className = `galeria-item ${sizeClass}`;
             itemEl.innerHTML = `
-                <img src="${item.src}" alt="${item.label || 'Imagen de la etapa'}" loading="lazy" onerror="this.src='assets/fondo.jpg'">
-                <span class="galeria-caption">${item.label || ''}</span>
+                <img src="${item.src}" alt="Render arquitectónico" loading="lazy" onerror="this.src='assets/fondo.jpg'">
             `;
 
             itemEl.addEventListener('click', () => {
