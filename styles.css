@@ -2073,6 +2073,204 @@ main, .page-content { flex: 1 0 auto; }
     aspect-ratio: 16 / 9;
 }
 
+/* Hover "ABRIR GALERÍA" sobre la imagen destacada única */
+.galeria-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.34);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    pointer-events: none;
+}
+
+.galeria-hero-trigger:hover .galeria-hover-overlay,
+.galeria-hero-trigger:focus-visible .galeria-hover-overlay {
+    opacity: 1;
+}
+
+.galeria-hover-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    background: rgba(15, 15, 15, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    color: #FFFFFF;
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transform: translateY(6px);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.galeria-hero-trigger:hover .galeria-hover-btn,
+.galeria-hero-trigger:focus-visible .galeria-hover-btn {
+    transform: translateY(0);
+}
+
+@media (hover: none), (max-width: 768px) {
+    .galeria-hover-overlay {
+        opacity: 1;
+        background: transparent;
+        align-items: flex-end;
+        justify-content: flex-end;
+        padding: 12px;
+    }
+    .galeria-hover-btn {
+        transform: none;
+        padding: 8px 14px;
+        font-size: 0.68rem;
+        letter-spacing: 1.5px;
+    }
+}
+
+/* Fullscreen Gallery Overlay Modal */
+.galeria-fullscreen {
+    position: fixed;
+    inset: 0;
+    background: rgba(12, 12, 12, 0.96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    z-index: 10060;
+    display: none;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.galeria-fullscreen.active {
+    display: flex;
+    opacity: 1;
+}
+
+.fullscreen-gallery-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.fullscreen-gallery-title-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.fullscreen-gallery-project {
+    color: #FFFFFF;
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.fullscreen-gallery-stage {
+    color: rgba(255, 255, 255, 0.65);
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.fullscreen-gallery-close {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: #FFFFFF;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    outline: none;
+}
+
+.fullscreen-gallery-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.06);
+}
+
+.fullscreen-gallery-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 28px;
+}
+
+.fullscreen-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1480px;
+    margin: 0 auto;
+}
+
+.fullscreen-gallery-card {
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #1B1B1B;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+}
+
+.fullscreen-gallery-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.fullscreen-gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+}
+
+.fullscreen-gallery-card:hover img {
+    transform: scale(1.03);
+}
+
+@media (max-width: 992px) {
+    .fullscreen-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+    .fullscreen-gallery-body {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 560px) {
+    .fullscreen-gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .fullscreen-gallery-header {
+        padding: 14px 18px;
+    }
+    .fullscreen-gallery-body {
+        padding: 16px;
+    }
+}
+
 /* --- Adaptaciones según Etapa de Proyecto --- */
 
 /* Bocetos, Planos, Renders: Gran predominio visual (imágenes grandes), texto técnico conciso */
@@ -2193,7 +2391,7 @@ main, .page-content { flex: 1 0 auto; }
     background: rgba(0, 0, 0, 0.94);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    z-index: 10000;
+    z-index: 10075;
     display: none;
     align-items: center;
     justify-content: center;

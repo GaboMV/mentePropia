@@ -114,11 +114,11 @@ function initHeaderSearch() {
         {
             title: 'ESDENKA',
             shortTitle: 'ESDENKA',
-            meta: '2022 | SC',
+            meta: '2025 | LP',
             category: 'edificios',
             categoryLabel: 'Edificios',
             img: 'assets/PROJECT1.png',
-            desc: 'Edificio residencial contemporáneo con interiores de alto confort e iluminación natural en Santa Cruz.'
+            desc: 'Edificio residencial contemporáneo con interiores de alto confort e iluminación natural en La Paz.'
         },
         {
             title: 'EDIFICIO QUARTIER',
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mapData = {
         'bolivia': [
             { title: 'Torre Camila PB', city: 'La Paz, Bolivia', year: '2024' },
-            { title: 'ESDENKA', city: 'Santa Cruz, Bolivia', year: '2022' },
+            { title: 'ESDENKA', city: 'La Paz, Bolivia', year: '2025' },
             { title: 'Casa Jacarandá', city: 'Cochabamba, Bolivia', year: '2023' },
             { title: 'Edificio Quartier', city: 'Santa Cruz, Bolivia', year: '2023' },
             { title: 'Parque Urbano Nube', city: 'Santa Cruz, Bolivia', year: '2025' }
@@ -933,6 +933,14 @@ function initStageDetailSection() {
     const masonryContainer = document.getElementById('stageMasonryGallery');
     const stageGrid = document.getElementById('stageDetailGrid');
 
+    // Fullscreen Gallery Grid Modal elements
+    const fullscreenModal = document.getElementById('galeriaFullscreen');
+    const fullscreenBody = document.getElementById('fullscreenGalleryBody');
+    const fullscreenGrid = document.getElementById('fullscreenGalleryGrid');
+    const fullscreenClose = document.getElementById('fullscreenGalleryClose');
+    const fullscreenProjectEl = document.getElementById('fullscreenGalleryProject');
+    const fullscreenStageEl = document.getElementById('fullscreenGalleryStage');
+
     // Lightbox modal elements & carousel state
     const lightboxModal = document.getElementById('galeriaLightbox');
     const lightboxImg = document.getElementById('lightboxImg');
@@ -945,6 +953,56 @@ function initStageDetailSection() {
     let lightboxImages = [];
     let currentLightboxIndex = 0;
     let touchStartX = 0;
+
+    function openFullscreenGallery(images) {
+        if (!fullscreenModal || !fullscreenGrid || !images || !images.length) {
+            openLightbox(images, 0);
+            return;
+        }
+        const stageData = stageGalleries[activeStageKey] || stageGalleries['renders'];
+        let stageLabel = (stageData.name || 'Galería').toUpperCase();
+        if (activeStageKey === 'renders' && renderSubfilter !== 'all') {
+            stageLabel += ` — ${renderSubfilter.toUpperCase()}`;
+        }
+        if (fullscreenProjectEl) fullscreenProjectEl.textContent = currentProjectTitle;
+        if (fullscreenStageEl) fullscreenStageEl.textContent = stageLabel;
+
+        fullscreenGrid.innerHTML = '';
+        images.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'fullscreen-gallery-card';
+            card.innerHTML = `<img src="${item.src}" alt="Imagen de galería" loading="lazy" onerror="this.src='assets/fondo.jpg'">`;
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openLightbox(images, index);
+            });
+            fullscreenGrid.appendChild(card);
+        });
+
+        fullscreenModal.classList.add('active');
+        fullscreenModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeFullscreenGallery() {
+        if (!fullscreenModal) return;
+        fullscreenModal.classList.remove('active');
+        fullscreenModal.setAttribute('aria-hidden', 'true');
+        if (!lightboxModal || !lightboxModal.classList.contains('active')) {
+            document.body.style.overflow = '';
+        }
+    }
+
+    if (fullscreenClose) {
+        fullscreenClose.addEventListener('click', closeFullscreenGallery);
+    }
+    if (fullscreenBody) {
+        fullscreenBody.addEventListener('click', (e) => {
+            if (e.target === fullscreenBody || e.target === fullscreenGrid) {
+                closeFullscreenGallery();
+            }
+        });
+    }
 
     function updateLightboxSlide() {
         if (!lightboxImg || !lightboxImages.length) return;
@@ -980,7 +1038,9 @@ function initStageDetailSection() {
         if (!lightboxModal) return;
         lightboxModal.classList.remove('active');
         lightboxModal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
+        if (!fullscreenModal || !fullscreenModal.classList.contains('active')) {
+            document.body.style.overflow = '';
+        }
     }
 
     if (lightboxClose) {
@@ -1020,10 +1080,15 @@ function initStageDetailSection() {
         }, { passive: true });
     }
     document.addEventListener('keydown', (e) => {
-        if (!lightboxModal || !lightboxModal.classList.contains('active')) return;
-        if (e.key === 'Escape') closeLightbox();
-        else if (e.key === 'ArrowLeft') showLightboxImage(currentLightboxIndex - 1);
-        else if (e.key === 'ArrowRight') showLightboxImage(currentLightboxIndex + 1);
+        if (lightboxModal && lightboxModal.classList.contains('active')) {
+            if (e.key === 'Escape') closeLightbox();
+            else if (e.key === 'ArrowLeft') showLightboxImage(currentLightboxIndex - 1);
+            else if (e.key === 'ArrowRight') showLightboxImage(currentLightboxIndex + 1);
+            return;
+        }
+        if (fullscreenModal && fullscreenModal.classList.contains('active') && e.key === 'Escape') {
+            closeFullscreenGallery();
+        }
     });
 
     function getCurrentImages() {
@@ -1036,7 +1101,7 @@ function initStageDetailSection() {
         return stageData.images || [];
     }
 
-    // Dynamic Masonry CSS Grid Builder
+    // Dynamic Single Hero Image with Hover "ABRIR GALERÍA" -> Fullscreen Gallery
     function renderMasonryGallery() {
         if (!masonryContainer) return;
         const images = getCurrentImages();
@@ -1059,45 +1124,34 @@ function initStageDetailSection() {
             badgeLabel.textContent = stageData.badge || 'GALERÍA DE PROYECTO';
         }
 
-        const total = images.length;
-        const remaining = total - 3;
+        if (!images.length) return;
 
-        images.forEach((item, index) => {
-            let sizeClass = 'img-pequena';
-            if (total === 1) {
-                sizeClass = 'img-completa';
-            } else if (total === 2) {
-                sizeClass = 'img-mediana';
-            } else if (index === 0) {
-                sizeClass = 'img-grande';
-            } else if (index < 3) {
-                sizeClass = 'img-pequena';
-            } else {
-                const remIdx = index - 3;
-                if (remaining === 1) {
-                    sizeClass = 'img-completa';
-                } else if (remaining % 3 === 0) {
-                    sizeClass = 'img-pequena';
-                } else if (remaining % 3 === 2) {
-                    sizeClass = remIdx >= remaining - 2 ? 'img-mediana' : 'img-pequena';
-                } else {
-                    // remaining % 3 === 1 (e.g. 4, 7, 10): end with two rows of 2 (4 medium items)
-                    sizeClass = remIdx >= remaining - 4 ? 'img-mediana' : 'img-pequena';
-                }
-            }
+        const heroItem = images[0];
+        const itemEl = document.createElement('div');
+        itemEl.className = 'galeria-item img-completa galeria-hero-trigger';
+        itemEl.setAttribute('role', 'button');
+        itemEl.setAttribute('tabindex', '0');
+        itemEl.setAttribute('aria-label', 'Abrir galería completa');
+        itemEl.innerHTML = `
+            <img src="${heroItem.src}" alt="Vista principal del proyecto" onerror="this.src='assets/fondo.jpg'">
+            <div class="galeria-hover-overlay">
+                <span class="galeria-hover-btn">
+                    <i class="fas fa-th"></i> ABRIR GALERÍA
+                </span>
+            </div>
+        `;
 
-            const itemEl = document.createElement('div');
-            itemEl.className = `galeria-item ${sizeClass}`;
-            itemEl.innerHTML = `
-                <img src="${item.src}" alt="Render arquitectónico" loading="lazy" onerror="this.src='assets/fondo.jpg'">
-            `;
-
-            itemEl.addEventListener('click', () => {
-                openLightbox(images, index);
-            });
-
-            masonryContainer.appendChild(itemEl);
+        itemEl.addEventListener('click', () => {
+            openFullscreenGallery(images);
         });
+        itemEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openFullscreenGallery(images);
+            }
+        });
+
+        masonryContainer.appendChild(itemEl);
     }
 
     function selectStage(stageKey, scrollToSection = false, specificSubfilter = null) {
