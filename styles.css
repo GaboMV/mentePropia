@@ -11,8 +11,8 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-body { font-family: var(--font-body); font-weight: 300; color: var(--color-text); background-color: var(--color-bg); }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; overflow-x: clip; }
+body { font-family: var(--font-body); font-weight: 300; color: var(--color-text); background-color: var(--color-bg); overflow-x: clip; }
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 
@@ -1354,13 +1354,30 @@ main, .page-content { flex: 1 0 auto; }
     }
 
     .deep-nav-item span {
-        font-size: clamp(0.72rem, 2.4vw, 0.95rem);
-        letter-spacing: 1.5px;
+        font-size: clamp(0.56rem, 2.3vw, 0.9rem);
+        letter-spacing: 1.2px;
+        line-height: 1.15;
     }
 
     .deep-nav-item:hover span,
     .deep-nav-item:active span {
-        letter-spacing: 2px;
+        letter-spacing: 1.5px;
+    }
+
+    .deep-nav-content {
+        padding: 0 4px;
+    }
+
+    .tile-sublinks {
+        gap: 4px;
+        margin-top: 4px;
+        flex-wrap: wrap;
+    }
+
+    .tile-sublink {
+        font-size: clamp(0.46rem, 1.75vw, 0.68rem);
+        letter-spacing: 1px;
+        padding: 2px 6px;
     }
 
     /* 2. Gallery Grid: Clean, vibrant overlay with metadata */
@@ -1487,6 +1504,7 @@ main, .page-content { flex: 1 0 auto; }
     left: 0;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -1499,6 +1517,7 @@ main, .page-content { flex: 1 0 auto; }
     justify-content: flex-start;
     align-items: center;
     overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 78px 24px 40px;
 }
 
@@ -2145,6 +2164,7 @@ main, .page-content { flex: 1 0 auto; }
     flex-direction: column;
     opacity: 0;
     transition: opacity 0.3s ease;
+    overscroll-behavior: contain;
 }
 
 .galeria-fullscreen.active {
@@ -2210,6 +2230,7 @@ main, .page-content { flex: 1 0 auto; }
 .fullscreen-gallery-body {
     flex: 1 1 auto;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 28px;
 }
 
@@ -2264,10 +2285,25 @@ main, .page-content { flex: 1 0 auto; }
         gap: 12px;
     }
     .fullscreen-gallery-header {
-        padding: 14px 18px;
+        padding: 14px 16px;
+        gap: 12px;
+    }
+    .fullscreen-gallery-project {
+        font-size: 0.9rem;
+        letter-spacing: 1.5px;
+    }
+    .fullscreen-gallery-stage {
+        font-size: 0.7rem;
+        letter-spacing: 1.3px;
+    }
+    .fullscreen-gallery-close {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        flex-shrink: 0;
     }
     .fullscreen-gallery-body {
-        padding: 16px;
+        padding: 14px;
     }
 }
 
@@ -2316,9 +2352,33 @@ main, .page-content { flex: 1 0 auto; }
 
 /* Responsividad en pantallas estrechas */
 @media (max-width: 768px) {
+    .stage-detail-section {
+        padding: 24px 0 36px;
+    }
+    .stage-nav-tabs {
+        padding: 4px 12px 14px;
+        margin-bottom: 20px;
+    }
+    .stage-tab-btn {
+        font-size: 0.7rem;
+        padding: 6px 13px;
+    }
+    .render-subfilter-nav {
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 14px;
+    }
     .galeria-masonry {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
+        margin: 14px 0;
+    }
+    .stage-badge-label {
+        font-size: 0.7rem;
+        letter-spacing: 1.4px;
+    }
+    .stage-title {
+        font-size: 1.5rem;
     }
     .img-grande,
     .img-completa {
@@ -2476,8 +2536,15 @@ main, .page-content { flex: 1 0 auto; }
     right: 24px;
 }
 @media (max-width: 768px) {
+    .galeria-lightbox {
+        padding: 12px;
+        overscroll-behavior: contain;
+    }
     .galeria-lightbox .lightbox-content {
-        max-width: 94vw;
+        max-width: 96vw;
+    }
+    .galeria-lightbox img {
+        max-height: 74vh;
     }
     .lightbox-nav {
         width: 40px;
@@ -2490,6 +2557,18 @@ main, .page-content { flex: 1 0 auto; }
     }
     .lightbox-next {
         right: 10px;
+    }
+    .lightbox-close {
+        top: 14px;
+        right: 14px;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        background: rgba(0, 0, 0, 0.45);
+        border-radius: 50%;
     }
 }
 .lightbox-close {
